@@ -11,7 +11,7 @@ import Stats from "@/components/Stats";
 import Audiences from "@/components/Audiences";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
-import CTAFooter from "@/components/CTAFooter";
+import CTAFooter from "@/components/Footer";
 import { Comparison } from "@/components/Comparison";
 import { ContactForm } from "@/components/ContactForm";
 

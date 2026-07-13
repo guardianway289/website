@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 
 const LINKS = [
   { label: "Why It Matters", href: "#why-it-matters" },
-  { label: "Why Guardian Way", href: "#why-guardian-way" },
+  { label: "Why Guardian Way", href: "#features" },
   { label: "Our Promise", href: "#our-promise" },
 ];
 
@@ -28,31 +29,10 @@ export default function Navbar() {
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <nav className="container-gr flex items-center justify-between h-[76px]">
+      <nav className="container-gr flex items-center justify-between h-19">
         {/* Mockup Shield Logo & Text */}
         <a href="#top" className="flex items-center gap-2 shrink-0">
-          <svg
-            viewBox="0 0 24 24"
-            className="w-8 h-8"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Shield Background */}
-            <path
-              d="M12 2C16.5 2 20 5.5 20 10C20 15.5 16 20 12 22C8 20 4 15.5 4 10C4 5.5 7.5 2 12 2Z"
-              fill="#153e75"
-            />
-            {/* White Checkmark */}
-            <path
-              d="M9 11.5L11 13.5L15 9.5"
-              stroke="white"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            {/* Yellow dot in top-left */}
-            <circle cx="8" cy="7" r="2.2" fill="#ffc83d" />
-          </svg>
+          <Image src="/logo.png" alt="logo image" height={50} width={50}/>
           <span className="font-display text-xl font-extrabold tracking-tight text-navy flex items-center">
             Guardian<span className="text-yellow ml-0.5">Way</span>
           </span>

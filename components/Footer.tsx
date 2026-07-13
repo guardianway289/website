@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 
 const FOOTER_COLS = [
   {
@@ -25,8 +26,9 @@ export default function CTAFooter() {
           <div className="grid gap-12 lg:grid-cols-[1.3fr_repeat(3,1fr)]">
             <div>
               <div className="flex items-center gap-2.5">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-yellow">
-                  <Icon icon="ph:shield-check-fill" className="text-[22px]" />
+                <span className="flex h-10 w-10 items-center justify-center text-yellow">
+                  {/* <Icon icon="ph:shield-check-fill" className="text-[22px]" /> */}
+                  <Image src="/logo.png" alt="logo image" height={50} width={50} className="rounded-full"/>
                 </span>
                 <span className="font-display text-[15px] font-extrabold tracking-tight text-white">
                   GUARDIAN WAY
