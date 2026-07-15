@@ -53,7 +53,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-[#fffbf4] via-[#fafbfd] to-[#f5f9fc]" />
       </div>
 
-      <div className="container-gr grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
+      <div className="container-gr grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-28 items-center">
         {/* Left: copy */}
         <div className="flex flex-col justify-center">
           <h1 className="font-heading font-extrabold tracking-tight leading-[1.12] text-4xl sm:text-5xl md:text-6xl lg:text-[4.4rem] text-[#111827]">
@@ -149,16 +149,16 @@ export default function Hero() {
         </div>
 
         {/* Right: kids image and floating badges */}
-        <div className="relative mx-auto w-full max-w-[480px] lg:max-w-none pt-8 lg:pt-0">
+        <div className="relative mx-auto w-full max-w-150 lg:max-w-none pt-8 lg:pt-0">
           {/* Ambient colorful glow behind the image */}
           <div className="absolute -inset-4 bg-gradient-to-tr from-[#3cb995]/15 via-[#153e75]/10 to-[#ffc83d]/20 rounded-[40px] blur-3xl opacity-75 -z-10" />
 
           {/* Main Image Container */}
-          <div className="relative rounded-[32px] overflow-hidden bg-white p-2.5 shadow-[0_30px_70px_rgba(15,27,45,0.12)] border border-line/45">
+          <div className="relative rounded-[32px] overflow-hidden shadow-[0_30px_70px_rgba(15,27,45,0.12)]">
             <img
               src="https://images.pexels.com/photos/4473498/pexels-photo-4473498.jpeg?auto=compress&cs=tinysrgb&w=1400"
               alt="Happy kids sitting safely buckled inside a car"
-              className="w-full aspect-[4/3] lg:aspect-[1.12] object-cover rounded-[24px]"
+              className="w-full lg:aspect-[1.12] object-cover rounded-[32px]"
             />
           </div>
 

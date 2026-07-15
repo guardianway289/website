@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
+import { ShieldCheck } from "lucide-react";
 
 const LINKS = [
   { label: "Why It Matters", href: "#why-it-matters" },
@@ -32,28 +33,31 @@ export default function Navbar() {
       <nav className="container-gr flex items-center justify-between h-19">
         {/* Mockup Shield Logo & Text */}
         <a href="#top" className="flex items-center gap-2 shrink-0">
-          <Image src="/logo.png" alt="logo image" height={50} width={50}/>
+          {/* <Image src="/logo.png" alt="logo image" height={50} width={50}/> */}
+          <span className="relative flex h-9 w-9 items-center justify-center rounded-2xl bg-[#153E75] text-white shadow-[0_6px_16px_rgba(21,62,117,0.25)]">
+            <ShieldCheck className="h-5 w-5" strokeWidth={2} />
+            <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-[#FFC83D] ring-2 ring-white" />
+          </span>
           <span className="font-display text-xl font-extrabold tracking-tight text-navy flex items-center">
             Guardian<span className="text-yellow ml-0.5">Way</span>
           </span>
         </a>
 
-        {/* Navigation Links */}
-        <ul className="hidden lg:flex items-center gap-8">
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-[14.5px] font-semibold text-ink-soft hover:text-navy transition-colors"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* CTA Get in Touch Button */}
-        <div className="hidden lg:flex items-center">
+        {/* Navigation Links + CTA */}
+        <div className="hidden lg:flex items-center gap-8 relative">
+          <div className="absolute -inset-4 -right-2 bg-[#FFC83D]/20 blur-2xl rounded-full -z-10" />
+          <ul className="flex items-center gap-8">
+            {LINKS.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className="text-[14.5px] font-semibold text-slate-700 hover:text-navy transition-colors"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
           <a
             href="#contact"
             className="rounded-full bg-navy px-6 py-2.5 text-[14.5px] font-bold text-white hover:bg-navy-deep transition-colors shadow-[0_4px_14px_rgba(21,62,117,0.25)]"
