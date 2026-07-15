@@ -46,14 +46,14 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pt-30 pb-16 lg:pt-39 lg:pb-24 min-h-[90vh]"
+      className="relative overflow-hidden pt-30 pb-16 lg:pt-39 lg:pb-24 min-h-[93vh]"
     >
       {/* backdrop */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-[#fffbf4] via-[#fafbfd] to-[#f5f9fc]" />
       </div>
 
-      <div className="container-gr grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-28 items-center">
+      <div className="container-gr grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-28 items-center mt-12">
         {/* Left: copy */}
         <div className="flex flex-col justify-center">
           <h1 className="font-heading font-extrabold tracking-tight leading-[1.12] text-4xl sm:text-5xl md:text-6xl lg:text-[4.4rem] text-[#111827]">

@@ -40,7 +40,7 @@
   --font-display: var(--font-manrope);
   --font-body: var(--font-jakarta);
 
-  --animate-marquee: marquee 28s linear infinite;
+  --animate-marquee: marquee 60s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-spin-slow: spin 40s linear infinite;
   --animate-spin-slower: spin 60s linear infinite reverse;
