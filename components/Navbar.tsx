@@ -34,13 +34,14 @@ export default function Navbar() {
         {/* Mockup Shield Logo & Text */}
         <a href="#top" className="flex items-center gap-2 shrink-0">
           {/* <Image src="/logo.png" alt="logo image" height={50} width={50}/> */}
-          <span className="relative flex h-9 w-9 items-center justify-center rounded-2xl bg-[#153E75] text-white shadow-[0_6px_16px_rgba(21,62,117,0.25)]">
+          {/* <span className="relative flex h-9 w-9 items-center justify-center rounded-2xl bg-[#153E75] text-white shadow-[0_6px_16px_rgba(21,62,117,0.25)]">
             <ShieldCheck className="h-5 w-5" strokeWidth={2} />
             <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-[#FFC83D] ring-2 ring-white" />
           </span>
           <span className="font-display text-xl font-extrabold tracking-tight text-navy flex items-center">
             Guardian<span className="text-yellow ml-0.5">Way</span>
-          </span>
+          </span> */}
+          <Image src="/logo.png" alt="logo image" height={200} width={200}/>
         </a>
 
         {/* Navigation Links + CTA */}

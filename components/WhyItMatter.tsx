@@ -70,7 +70,8 @@ function RouteConcept() {
           The Route Difference
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-mint-soft px-3 py-1 text-[11px] font-bold text-mint">
-          <Clock className="h-3.5 w-3.5" strokeWidth={2.4} /> 30–50% less travel time
+          <Clock className="h-3.5 w-3.5" strokeWidth={2.4} /> 30–50% less travel
+          time
         </span>
       </div>
 
@@ -83,10 +84,22 @@ function RouteConcept() {
         >
           <defs>
             <filter id="glow-blue" x="-60%" y="-60%" width="220%" height="220%">
-              <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#153E75" floodOpacity="0.35" />
+              <feDropShadow
+                dx="0"
+                dy="0"
+                stdDeviation="3"
+                floodColor="#153E75"
+                floodOpacity="0.35"
+              />
             </filter>
             <filter id="glow-red" x="-60%" y="-60%" width="220%" height="220%">
-              <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#FF6B6B" floodOpacity="0.35" />
+              <feDropShadow
+                dx="0"
+                dy="0"
+                stdDeviation="3"
+                floodColor="#FF6B6B"
+                floodOpacity="0.35"
+              />
             </filter>
           </defs>
 
@@ -104,7 +117,15 @@ function RouteConcept() {
 
           {/* Pickup stops along traditional route */}
           {STOPS.map(([cx, cy], i) => (
-            <circle key={i} cx={cx} cy={cy} r="3.5" fill="#fff" stroke="#FF6B6B" strokeWidth="2">
+            <circle
+              key={i}
+              cx={cx}
+              cy={cy}
+              r="3.5"
+              fill="#fff"
+              stroke="#FF6B6B"
+              strokeWidth="2"
+            >
               <animate
                 attributeName="r"
                 values="2.5;5;2.5"
@@ -150,7 +171,14 @@ function RouteConcept() {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            <text x="46" y="226" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0f1b2d">
+            <text
+              x="46"
+              y="226"
+              textAnchor="middle"
+              fontSize="11"
+              fontWeight="700"
+              fill="#0f1b2d"
+            >
               Home
             </text>
           </g>
@@ -166,7 +194,14 @@ function RouteConcept() {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            <text x="254" y="20" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0f1b2d">
+            <text
+              x="254"
+              y="20"
+              textAnchor="middle"
+              fontSize="11"
+              fontWeight="700"
+              fill="#0f1b2d"
+            >
               School
             </text>
           </g>
@@ -194,17 +229,26 @@ function RouteConcept() {
 
 /* ─── Image Carousel ─────────────────────────────────────────────────── */
 const CAROUSEL_IMAGES = [
-  { src: "/c2.jpeg",  alt: "A child and parent playing a board game together at home" },
-  { src: "/c3.webp",  alt: "A girl playing football on the grass at golden hour" },
-  { src: "/c4.jpeg",  alt: "A boy painting on a canvas at an easel" },
-  { src: "/c1.webp",  alt: "A girl painting with watercolours by the window" },
+  {
+    src: "/c2.jpeg",
+    alt: "A child and parent playing a board game together at home",
+  },
+  {
+    src: "/c3.webp",
+    alt: "A girl playing football on the grass at golden hour",
+  },
+  { src: "/c4.jpeg", alt: "A boy painting on a canvas at an easel" },
+  { src: "/c1.webp", alt: "A girl painting with watercolours by the window" },
 ];
 
 function ChildhoodCarousel() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setIndex((i) => (i + 1) % CAROUSEL_IMAGES.length), 3500);
+    const t = setInterval(
+      () => setIndex((i) => (i + 1) % CAROUSEL_IMAGES.length),
+      3500,
+    );
     return () => clearInterval(t);
   }, []);
 
@@ -242,16 +286,35 @@ function ChildhoodCarousel() {
 
 /* ─── Benefit Cards ──────────────────────────────────────────────────── */
 const BENEFITS = [
-  { icon: Sunrise, label: "More Time Every Morning" },
-  { icon: Palette, label: "Discover New Hobbies" },
-  { icon: Bike,    label: "More Playtime" },
-  { icon: Heart,   label: "More Family Time" },
+  {
+    icon: Sunrise,
+    label: "More Time Every Morning",
+    image: "/more_time.png",
+  },
+  {
+    icon: Palette,
+    label: "Discover New Hobbies",
+    image: "/hobbies.png",
+  },
+  {
+    icon: Bike,
+    label: "More Playtime",
+    image: "/more_time.png",
+  },
+  {
+    icon: Heart,
+    label: "More Family Time",
+    image: "/more_family_time.png",
+  },
 ];
 
 /* ─── Main Section Export ────────────────────────────────────────────── */
-export default function ActivityCarousel() {
+export default function WhyItMatter() {
   return (
-    <section id="why-it-matters" className="relative py-24 md:py-32 scroll-mt-16">
+    <section
+      id="why-it-matters"
+      className="relative py-24 md:py-32 scroll-mt-16"
+    >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Chapter header */}
         <Reveal>
@@ -273,33 +336,73 @@ export default function ActivityCarousel() {
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-lg text-base md:text-lg text-ink-soft leading-relaxed">
                 Less time on the road. More time for learning, rest, and family.{" "}
-                <span className="font-bold text-navy">That&apos;s the Guardian Way.</span>
+                <span className="font-bold text-navy">
+                  That&apos;s the Guardian Way.
+                </span>
               </p>
             </Reveal>
           </div>
 
-          {/* Right: animated route map */}
+          {/* Right: image carousel */}
           <Reveal delay={0.15}>
-            <RouteConcept />
+            <ChildhoodCarousel />
           </Reveal>
         </div>
 
-        {/* Bottom: carousel + benefit cards */}
+        {/* Bottom: benefit cards + carousel */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-          {/* Image carousel — 7 cols */}
-          <Reveal className="md:col-span-7" y={24}>
-            <ChildhoodCarousel />
+          {/* Image carousel — 5 cols */}
+          <Reveal className="md:col-span-5" y={24}>
+            <RouteConcept />
           </Reveal>
 
-          {/* Benefit cards — 5 cols, 2×2 */}
-          <div className="md:col-span-5 grid grid-cols-2 gap-4">
+          {/* Benefit cards — 7 cols, 2×2 */}
+          <div className="md:col-span-7 grid grid-cols-2 gap-4">
             {BENEFITS.map((b, i) => (
               <Reveal key={b.label} delay={i * 0.07} y={24}>
-                <div className="group h-full rounded-2xl border border-line bg-white p-6 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(21,62,117,0.1)] transition-all duration-300 cursor-default">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-yellow/20 text-navy">
-                    <b.icon className="h-5 w-5" strokeWidth={1.75} />
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-line bg-white p-6 transition-all duration-500 cursor-default hover:-translate-y-2 hover:border-navy hover:shadow-[0_25px_50px_rgba(21,62,117,0.18)]">
+                  {/* Background color wash that rises from bottom on hover */}
+                  <div className="pointer-events-none absolute inset-0 translate-y-full bg-linear-to-t from-navy to-navy/90 transition-transform duration-500 ease-out group-hover:translate-y-0" />
+
+                  {/* Image reveal — fades + scales in behind content on hover */}
+                  <div className="pointer-events-none absolute inset-0 opacity-0 scale-110 transition-all duration-500 ease-out group-hover:opacity-80 group-hover:scale-100">
+                    {b.image ? (
+                      <img
+                        src={b.image}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="h-full w-full"
+                        style={{
+                          backgroundImage:
+                            "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, transparent 60%)",
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  {/* Sheen sweep */}
+                  <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
+
+                  {/* Icon: floats continuously, then bounces + rotates + color-shifts on hover */}
+                  <span
+                    className="relative inline-flex h-11 w-11 items-center justify-center rounded-xl bg-yellow/20 text-navy transition-all duration-300 ease-out group-hover:scale-125 group-hover:-rotate-12 group-hover:bg-yellow group-hover:text-navy group-hover:shadow-[0_8px_20px_rgba(250,204,21,0.5)]"
+                    style={{ animation: "iconFloat 3s ease-in-out infinite" }}
+                  >
+                    <b.icon
+                      className="h-5 w-5 transition-transform duration-300 group-hover:scale-110"
+                      strokeWidth={1.75}
+                    />
                   </span>
-                  <p className="mt-4 font-semibold text-ink">{b.label}</p>
+
+                  <p className="relative mt-4 font-semibold text-ink transition-colors duration-500 group-hover:text-white">
+                    {b.label}
+                  </p>
+
+                  {/* Underline that draws in on hover */}
+                  <span className="relative mt-2 block h-0.5 w-0 bg-yellow transition-all duration-500 ease-out group-hover:w-10" />
                 </div>
               </Reveal>
             ))}
