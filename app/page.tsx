@@ -1,7 +1,7 @@
 "use client"
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import ActivityCarousel from "@/components/ActivityCarousel";
+import ActivityCarousel from "@/components/WhyItMatter";
 import TrustBar from "@/components/TrustBar";
 import ProblemSolution from "@/components/ProblemSolution";
 import HowItWorks from "@/components/HowItWorks";
@@ -14,6 +14,7 @@ import FAQ from "@/components/FAQ";
 import CTAFooter from "@/components/Footer";
 import { Comparison } from "@/components/Comparison";
 import { ContactForm } from "@/components/ContactForm";
+import WhyItMatter from "@/components/WhyItMatter";
 
 export default function Home() {
   return (
@@ -21,8 +22,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <TrustBar />
-        <ActivityCarousel />
+        {/* <TrustBar /> */}
+        <WhyItMatter/>
         <Comparison/>
         {/* <ProblemSolution /> */}
         {/* <HowItWorks /> */}
