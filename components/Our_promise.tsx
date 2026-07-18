@@ -70,7 +70,7 @@ export default function OurPromise() {
             <Reveal>
               <div className="text-left">
                 <Chapter number="03" label="OUR PURPOSE" />
-                <h2 className="mt-4 font-display text-3xl md:text-5xl font-extrabold tracking-tight text-[#153E75] leading-tight whitespace-nowrap">
+                <h2 className="mt-4 font-display text-3xl md:text-5xl font-extrabold tracking-tight text-[#153E75] leading-tight">
                   A promise to everyone who trusts us.
                 </h2>
                 <p className="mt-4 text-[16px] text-[#4B5563] leading-relaxed">

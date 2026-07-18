@@ -297,7 +297,7 @@ export default function WhyItMatter() {
   return (
     <section
       id="why-it-matters"
-      className="relative py-24 md:py-32 scroll-mt-16"
+      className="relative py-24 md:py-32 scroll-mt-[-40px]"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Chapter header */}
