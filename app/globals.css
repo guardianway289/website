@@ -201,7 +201,7 @@ button:focus-visible,
 }
 .gw-dot-fast {
   offset-path: path("M14 30 L 286 30");
-  animation: gw-drift-fast 1.7s linear infinite;
+  animation: gw-drift-fast 4.6s linear infinite;
 }
 .gw-dot-slow {
   offset-path: path("M14 112 C 80 55, 130 158, 190 96 S 260 46, 286 62");
