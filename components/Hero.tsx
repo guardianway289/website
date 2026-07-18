@@ -51,7 +51,7 @@ export default function Hero() {
       {/* backdrop */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-[#fffbf4] via-[#fafbfd] to-[#f5f9fc]" />
-        <div className="absolute -bottom-96 left-40 h-150 w-150 rounded-full bg-[#3cb995]/20 blur-3xl" />
+        <div className="absolute -bottom-96 -left-10 h-150 w-150 rounded-full bg-[#3cb995]/10 blur-3xl" />
       </div>
 
       <div className="container-gr grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-28 items-center mt-24">

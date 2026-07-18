@@ -608,7 +608,7 @@ export const Features = () => {
       {/* Marquee */}
       <div className="mt-20 overflow-hidden border-y border-[#E6EEF9] bg-white py-6">
         <style>{`
-          @keyframes gw-marquee-ltr { from { transform: translateX(-50%); } to { transform: translateX(0%); } }
+          @keyframes gw-marquee-ltr { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
           .gw-marquee-track { display: flex; width: max-content; animation: gw-marquee-ltr 28s linear infinite; }
           .gw-marquee-track:hover { animation-play-state: paused; }
           @media (prefers-reduced-motion: reduce) { .gw-marquee-track { animation: none; } }
