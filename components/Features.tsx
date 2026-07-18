@@ -352,15 +352,15 @@ const PillarCard = ({
         <div className="relative flex h-full items-center justify-center p-4">
           <PillarVisual variant={variant} tone={tone} />
         </div>
-        <span
-          className={`absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-md ${t.text}`}
-        >
-          <Icon className="h-5 w-5" strokeWidth={1.75} />
-        </span>
       </div>
 
       <div className="p-7 md:p-8">
-        <h3 className="font-heading text-xl md:text-2xl font-extrabold text-[#111827]">
+        <h3 className="flex items-center gap-2 font-heading text-xl md:text-2xl font-extrabold text-[#111827]">
+          <span
+            className={`flex h-10 w-10 items-center justify-center rounded-lg ${t.chip} ${t.text}`}
+          >
+            <Icon className="h-5 w-5" strokeWidth={1.75} />
+          </span>
           {title}
         </h3>
         <p className="mt-2.5 text-[#4B5563] leading-relaxed">{body}</p>
