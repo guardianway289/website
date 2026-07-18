@@ -573,7 +573,7 @@ export const Features = () => {
         </div>
 
         {/* Trusted partners */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+        {/* <div className="mt-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
           <Reveal className="md:col-span-6" y={24}>
             <div className="relative h-full min-h-[280px] overflow-hidden rounded-3xl border border-[#E6EEF9] shadow-[0_8px_30px_rgba(21,62,117,0.06)]">
               <img
@@ -602,7 +602,7 @@ export const Features = () => {
               </Reveal>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Marquee */}
