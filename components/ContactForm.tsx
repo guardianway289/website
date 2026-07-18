@@ -66,7 +66,7 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
   };
 
   return (
-    <section ref={ref} id="contact" className="relative py-24 md:py-32 scroll-mt-16">
+    <section ref={ref} id="contact" className="relative py-24 md:py-32 scroll-mt-[-40px]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">

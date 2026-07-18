@@ -491,7 +491,7 @@ const CONTACT: { icon: LucideIcon; label: string; value: ReactNode }[] = [
 
 export const Features = () => {
   return (
-    <section id="features" className="relative py-24 md:py-32 scroll-mt-16">
+    <section id="features" className="relative py-24 md:py-32 scroll-mt-[-40px]">
       <style>{`
         @keyframes gw-drift-fast { from { offset-distance: 0%; } to { offset-distance: 100%; } }
         @keyframes gw-drift-slow { from { offset-distance: 0%; } to { offset-distance: 100%; } }
