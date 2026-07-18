@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState, useCallback, type ReactNode } from "react";
 import { useInView } from "framer-motion";
 import {
   Users,
@@ -16,6 +16,8 @@ import {
   Phone,
   Mail,
   MapPinned,
+  ChevronLeft,
+  ChevronRight,
   type LucideIcon,
   Pause,
   Play,
@@ -269,6 +271,75 @@ const PillarVisual = ({ variant, tone }: { variant: VisualVariant; tone: Tone })
   );
 };
 
+/* ---------- Pillar horizontal scroll with arrows ---------- */
+
+const PillarScroll = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  }, []);
+
+  const scroll = (dir: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.6;
+    el.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
+  };
+
+  return (
+    <div className="relative mt-8">
+      {/* left arrow */}
+      {canScrollLeft && (
+        <button
+          onClick={() => scroll("left")}
+          aria-label="Scroll left"
+          className="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-blue-300 border border-[#E6EEF9] shadow-[0_4px_14px_rgba(21,62,117,0.12)] text-[#153E75] transition-all hover:shadow-[0_8px_24px_rgba(21,62,117,0.18)] hover:-translate-x-0.5"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+      )}
+
+      {/* right arrow */}
+      {canScrollRight && (
+        <button
+          onClick={() => scroll("right")}
+          aria-label="Scroll right"
+          className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-blue-300 border border-[#E6EEF9] shadow-[0_4px_14px_rgba(21,62,117,0.12)] text-[#153E75] transition-all hover:shadow-[0_8px_24px_rgba(21,62,117,0.18)] hover:translate-x-0.5"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      )}
+
+      {/* scrollable track */}
+      <div
+        ref={scrollRef}
+        onScroll={checkScroll}
+        className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory -mx-6 px-6 md:-mx-12 md:px-12"
+        style={{ scrollbarWidth: "none" }}
+      >
+        {PILLARS.map((p, i) => (
+          <Reveal key={p.title} delay={i * 0.07} y={24} className="snap-start shrink-0 w-[85vw] sm:w-[70vw] md:w-[calc(50%-12px)]">
+            <PillarCard {...p} />
+          </Reveal>
+        ))}
+      </div>
+
+      {/* mobile swipe hint */}
+      <div className="flex md:hidden items-center justify-center gap-2 mt-3 text-xs text-[#9CA6B4]">
+        <ChevronLeft className="h-3.5 w-3.5" />
+        <span>Swipe to explore</span>
+        <ChevronRight className="h-3.5 w-3.5" />
+      </div>
+    </div>
+  );
+};
+
 /* ---------- Pillar card ---------- */
 
 const PillarCard = ({ icon: Icon, variant, title, body, tags, tone }: Pillar) => {
@@ -464,16 +535,10 @@ export const Features = () => {
           </p>
         </Reveal>
 
-        {/* Pillars */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-6">
-          {PILLARS.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.07} y={24} className={p.span}>
-              <PillarCard {...p} />
-            </Reveal>
-          ))}
-        </div>
+        {/* Pillars — horizontal scroll */}
+        <PillarScroll />
 
-        {/* Live tracking + video */}
+        {/* Live tracking + smart tech */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
           <Reveal className="md:col-span-5" y={24}>
             <div className="h-full rounded-3xl gw-card p-8 flex flex-col items-center justify-center text-center">
@@ -489,25 +554,22 @@ export const Features = () => {
             </div>
           </Reveal>
           <Reveal delay={0.06} className="md:col-span-7" y={24}>
-            <VideoShowcase />
-          </Reveal>
-        </div>
-
-        {/* Tech */}
-        <Reveal delay={0.05} className="mt-20">
-          <p className="text-xs md:text-sm uppercase tracking-[0.16em] text-[#153E75] font-bold">
-            Smart tech for smarter commuting
-          </p>
-        </Reveal>
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {TECH.map((t, i) => (
-            <Reveal key={t.title} delay={i * 0.05} y={20}>
-              <div className="group h-full rounded-2xl bg-[#F3F8FF] border border-[#E6EEF9] p-4 md:p-6 hover:bg-white hover:shadow-[0_12px_30px_rgba(21,62,117,0.08)] transition-all">
-                <t.icon className="h-6 w-6 text-[#153E75] group-hover:scale-110 transition-transform" strokeWidth={1.75} />
-                <p className="mt-4 text-sm font-semibold leading-snug text-[#111827]">{t.title}</p>
+            <div className="h-full rounded-3xl gw-card p-8 mt-15">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#153E75]">
+                Smart tech for smarter commuting
+              </p>
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                {TECH.map((t, i) => (
+                  <Reveal key={t.title} delay={0.08 + i * 0.05} y={20}>
+                    <div className="group h-full rounded-2xl bg-[#F3F8FF] border border-[#E6EEF9] p-5 hover:bg-white hover:shadow-[0_12px_30px_rgba(21,62,117,0.08)] transition-all">
+                      <t.icon className="h-6 w-6 text-[#153E75] group-hover:scale-110 transition-transform" strokeWidth={1.75} />
+                      <p className="mt-3 text-sm font-semibold leading-snug text-[#111827]">{t.title}</p>
+                    </div>
+                  </Reveal>
+                ))}
               </div>
-            </Reveal>
-          ))}
+            </div>
+          </Reveal>
         </div>
 
         {/* Trusted partners */}
