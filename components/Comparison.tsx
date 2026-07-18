@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { X, Bus, Car, ChevronDown, type LucideIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Bus, Car, type LucideIcon } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 interface FailPoint {
@@ -74,6 +74,8 @@ interface FailCardProps {
   meterTone: "red" | "amber";
 }
 
+const SEGMENTS = 10;
+
 const FailCard = ({
   icon: Icon,
   title,
@@ -82,72 +84,93 @@ const FailCard = ({
   meterValue,
   meterTone,
 }: FailCardProps) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [filled, setFilled] = useState(false);
+  const [filled, setFilled] = useState(0);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setFilled(true), 350);
-    return () => clearTimeout(t);
-  }, []);
+    const el = cardRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const t = setTimeout(() => setFilled(meterValue), 200);
+          obs.disconnect();
+          return () => clearTimeout(t);
+        }
+      },
+      { threshold: 0.4 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [meterValue]);
 
-  const toneColor = meterTone === "red" ? "#FF6B6B" : "#F59E0B";
+  const tone =
+    meterTone === "red"
+      ? { accent: "#FF6B6B", bg: "#FFF1F1", track: "#FBE2E2" }
+      : { accent: "#F59E0B", bg: "#FFF7EA", track: "#FBE9C7" };
+
+  const activeSegments = Math.round((filled / 100) * SEGMENTS);
 
   return (
-    <div className="h-full rounded-3xl bg-white border border-[#E6EEF9] p-7 shadow-[0_8px_30px_rgba(21,62,117,0.05)] transition-shadow duration-300 hover:shadow-[0_14px_40px_rgba(21,62,117,0.1)]">
-      <div className="flex items-center gap-3">
-        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FFF1F1] text-[#FF6B6B]">
-          <Icon className="h-5 w-5" strokeWidth={1.75} />
-        </span>
-        <h3 className="font-heading text-xl font-extrabold text-[#111827]">{title}</h3>
-      </div>
+    <div
+      ref={cardRef}
+      className="group relative h-full overflow-hidden rounded-[28px] bg-white border border-[#E6EEF9] shadow-[0_8px_30px_rgba(21,62,117,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(21,62,117,0.12)]"
+    >
+      {/* accent rail */}
+      <span
+        className="absolute left-0 top-0 h-full w-1.5"
+        style={{ backgroundColor: tone.accent }}
+      />
 
-      <ul className="mt-6 space-y-1">
-        {points.map((item, i) => {
-          const open = openIndex === i;
-          return (
-            <li key={item.point}>
-              <button
-                type="button"
-                onClick={() => setOpenIndex(open ? null : i)}
-                className="w-full flex items-start gap-3 text-left rounded-xl px-2 py-2 -mx-2 transition-colors duration-200 hover:bg-[#F7FAFF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B6B]/40"
-                aria-expanded={open}
-              >
-                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#FFE3E3]">
-                  <X className="h-3 w-3 text-[#FF6B6B]" strokeWidth={3} />
-                </span>
-                <span className="flex-1 text-sm text-[#4B5563]">{item.point}</span>
-                <ChevronDown
-                  className={`h-4 w-4 mt-0.5 shrink-0 text-[#9CA6B4] transition-transform duration-300 ${
-                    open ? "rotate-180 text-[#FF6B6B]" : ""
-                  }`}
-                  strokeWidth={2}
-                />
-              </button>
-              <div
-                className="grid transition-[grid-template-rows] duration-300 ease-out"
-                style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-              >
-                <div className="overflow-hidden">
-                  <p className="pl-7 pr-2 pb-3 text-[13px] leading-relaxed text-[#8A93A3]">
-                    {item.why}
-                  </p>
-                </div>
+      <div className="p-7 pl-8 md:p-9 md:pl-10">
+        <div className="flex items-center gap-3.5">
+          <span
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"
+            style={{ backgroundColor: tone.bg, color: tone.accent }}
+          >
+            <Icon className="h-5 w-5" strokeWidth={1.75} />
+          </span>
+          <h3 className="font-heading text-xl md:text-2xl font-extrabold tracking-tight text-[#111827]">
+            {title}
+          </h3>
+        </div>
+
+        <ul className="mt-7 space-y-5">
+          {points.map((item) => (
+            <li key={item.point} className="flex gap-3.5">
+              <span
+                className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{ backgroundColor: tone.accent }}
+              />
+              <div>
+                <p className="text-[15px] font-semibold leading-snug text-[#1F2937]">
+                  {item.point}
+                </p>
+                <p className="mt-1 text-[13px] leading-relaxed text-[#8A93A3]">
+                  {item.why}
+                </p>
               </div>
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
 
-      <div className="mt-6 pt-5 border-t border-[#EEF3FA]">
-        <div className="flex items-center justify-between text-xs font-semibold text-[#6B7280]">
-          <span>{meterLabel}</span>
-          <span style={{ color: toneColor }}>{meterValue}%</span>
-        </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-[#F1F5FB] overflow-hidden">
-          <div
-            className="h-full rounded-full transition-[width] duration-1000 ease-out"
-            style={{ width: filled ? `${meterValue}%` : "0%", backgroundColor: toneColor }}
-          />
+        <div className="mt-8 pt-6 border-t border-[#EEF3FA]">
+          <div className="flex items-center justify-between text-xs font-semibold text-[#6B7280]">
+            <span>{meterLabel}</span>
+            <span style={{ color: tone.accent }}>{meterValue}%</span>
+          </div>
+          <div className="mt-2.5 flex gap-1">
+            {Array.from({ length: SEGMENTS }).map((_, i) => (
+              <span
+                key={i}
+                className="h-1.5 flex-1 rounded-full transition-colors duration-500"
+                style={{
+                  backgroundColor: i < activeSegments ? tone.accent : tone.track,
+                  transitionDelay: `${i * 40}ms`,
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -177,13 +200,7 @@ export const Comparison = () => {
           </div>
         </Reveal>
 
-        <Reveal delay={0.14}>
-          <p className="text-center text-xs font-semibold uppercase tracking-wide text-[#9CA6B4] mb-4">
-            Tap any point to see why it matters
-          </p>
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
           <Reveal delay={0.1} y={24}>
             <FailCard
               icon={Car}

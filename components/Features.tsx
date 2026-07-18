@@ -1,74 +1,104 @@
 import { useRef, useState, type ReactNode } from "react";
 import { useInView } from "framer-motion";
 import {
-  Users, Home, Radar, ShieldCheck, MapPin, Video, Route,
-  BadgeCheck, Car, Smartphone, BellRing, Sparkles, ChevronDown,
-  CheckCircle2, Play, Pause, Phone, Mail, MapPinned, type LucideIcon,
+  Users,
+  Home,
+  Radar,
+  ShieldCheck,
+  MapPin,
+  Video,
+  Route,
+  BadgeCheck,
+  Car,
+  Smartphone,
+  BellRing,
+  Sparkles,
+  Phone,
+  Mail,
+  MapPinned,
+  type LucideIcon,
+  Pause,
+  Play,
 } from "lucide-react";
 import { Reveal, Chapter, Counter } from "./Reveal";
 import HeroDevice from "./HeroDevice";
 import Image from "next/image";
 
+/* ---------- Pillar data ---------- */
+
+type VisualVariant = "groups" | "homepin" | "radar" | "shield";
+type Tone = "gold" | "mint" | "navy";
+
 interface Pillar {
   icon: LucideIcon;
+  variant: VisualVariant;
   title: string;
   body: string;
-  details: string[];
+  tags: string[];
   span: string;
-  tint: string;
+  tone: Tone;
 }
+
+const TONE_STYLES: Record<
+  Tone,
+  { chip: string; text: string; dot: string; panel: string }
+> = {
+  gold: {
+    chip: "bg-[#FFF4D6]",
+    text: "text-[#153E75]",
+    dot: "#153E75",
+    panel: "#FFF8E7",
+  },
+  mint: {
+    chip: "bg-[#E4F7F1]",
+    text: "text-[#42C7A1]",
+    dot: "#42C7A1",
+    panel: "#F0FBF7",
+  },
+  navy: {
+    chip: "bg-[#EAF1FB]",
+    text: "text-[#153E75]",
+    dot: "#153E75",
+    panel: "#F3F8FF",
+  },
+};
 
 const PILLARS: Pillar[] = [
   {
     icon: Users,
+    variant: "groups",
     title: "Small Groups, Less Travel Time",
     body: "Optimized rides with only 6–7 students. No overcrowding, direct routing and 30–50% less time on the road.",
-    details: [
-      "No overcrowding — every child enjoys a comfortable ride.",
-      "Direct routing from your locality to school, cutting travel time by up to 30–50%.",
-      "More time in the morning to prepare your child without rushing.",
-      "Earlier drop-offs, giving children more time to relax, do homework, or play.",
-    ],
+    tags: ["Max 7 per ride", "30–50% faster"],
     span: "md:col-span-7",
-    tint: "bg-[#FFF4D6] text-[#153E75]",
+    tone: "gold",
   },
   {
     icon: Home,
+    variant: "homepin",
     title: "Home Pick-up",
     body: "Direct pick-up & drop right from your home. No waiting at bus stops — a smoother start for working parents.",
-    details: [
-      "Direct pick-up and drop-off from your doorstep.",
-      "No waiting at the bus stops.",
-      "Saves valuable time for working parents and helps ensure a smoother start to the day.",
-    ],
+    tags: ["Door to door", "Zero stop delays"],
     span: "md:col-span-5",
-    tint: "bg-[#E4F7F1] text-[#42C7A1]",
+    tone: "mint",
   },
   {
     icon: Radar,
+    variant: "radar",
     title: "Complete Visibility",
     body: "Real-time GPS, live dashcam feeds inside & outside the vehicle, and instant delay notifications.",
-    details: [
-      "Real-time GPS tracking for parents.",
-      "Access to live dashcam feeds from inside and outside the vehicle.",
-      "Immediate notifications in case of delays due to traffic, weather, or unforeseen circumstances.",
-      "Transparent communication through live updates, for complete peace of mind.",
-    ],
+    tags: ["Live GPS", "In-cabin camera"],
     span: "md:col-span-5",
-    tint: "bg-[#EAF1FB] text-[#153E75]",
+    tone: "navy",
   },
   {
     icon: ShieldCheck,
+    variant: "shield",
     title: "Safety Starts with the Driver",
     body: "Police-verified, professionally trained drivers, AI-monitored performance and emergency vehicle immobilization.",
-    details: [
-      "Comprehensive background verification and police checks before onboarding.",
-      "Continuous driver performance monitoring through AI-powered dashcams and parent feedback.",
-      "Professionally trained drivers focused on child safety and responsible driving.",
-      "Emergency vehicle immobilization capability for enhanced security.",
-    ],
+    tags: ["Police-verified", "AI-monitored"],
     span: "md:col-span-7",
-    tint: "bg-[#E4F7F1] text-[#42C7A1]",
+    tone: "mint",
   },
 ];
 
@@ -106,7 +136,13 @@ interface StatRowProps {
   unit?: string;
 }
 
-const StatRow = ({ label, guardian, traditional, max, unit = "" }: StatRowProps) => {
+const StatRow = ({
+  label,
+  guardian,
+  traditional,
+  max,
+  unit = "",
+}: StatRowProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -115,7 +151,9 @@ const StatRow = ({ label, guardian, traditional, max, unit = "" }: StatRowProps)
       <p className="text-sm font-bold text-[#111827] mb-3">{label}</p>
       <div className="space-y-2.5">
         <div className="flex items-center gap-3">
-          <span className="w-28 shrink-0 text-xs font-bold text-[#153E75]">Guardian Ride</span>
+          <span className="w-28 shrink-0 text-xs font-bold text-[#153E75]">
+            Guardian Ride
+          </span>
           <div className="flex-1 h-3 rounded-full bg-[#EAF1FB] overflow-hidden">
             <div
               className="h-full rounded-full bg-[#153E75] transition-[width] duration-1000 ease-out"
@@ -127,7 +165,9 @@ const StatRow = ({ label, guardian, traditional, max, unit = "" }: StatRowProps)
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="w-28 shrink-0 text-xs font-semibold text-[#9CA6B4]">Traditional Bus</span>
+          <span className="w-28 shrink-0 text-xs font-semibold text-[#9CA6B4]">
+            Traditional Bus
+          </span>
           <div className="flex-1 h-3 rounded-full bg-[#F1F5FB] overflow-hidden">
             <div
               className="h-full rounded-full bg-[#D8DEE8] transition-[width] duration-1000 ease-out"
@@ -143,41 +183,196 @@ const StatRow = ({ label, guardian, traditional, max, unit = "" }: StatRowProps)
   );
 };
 
-/* ---------- Expandable pillar card ---------- */
+/* ---------- Bespoke animated illustrations, one per pillar ---------- */
 
-const PillarCard = ({ icon: Icon, title, body, details }: Pillar) => {
-  const [open, setOpen] = useState(false);
+const PillarVisual = ({
+  variant,
+  tone,
+}: {
+  variant: VisualVariant;
+  tone: Tone;
+}) => {
+  const t = TONE_STYLES[tone];
+
+  if (variant === "groups") {
+    return (
+      <div className="relative mx-auto h-full w-full max-w-[320px]">
+        <svg viewBox="0 0 300 140" className="absolute inset-0 h-full w-full">
+          <path
+            d="M14 30 L 286 30"
+            stroke={t.dot}
+            strokeWidth="2"
+            strokeDasharray="1 7"
+            strokeLinecap="round"
+            opacity="0.35"
+          />
+          <path
+            d="M14 112 C 80 55, 130 158, 190 96 S 260 46, 286 62"
+            stroke="#B9C2D0"
+            strokeWidth="2"
+            strokeDasharray="1 7"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.6"
+          />
+        </svg>
+        <span
+          className="gw-dot-fast absolute h-3 w-3 rounded-full"
+          style={{ backgroundColor: t.dot, boxShadow: `0 0 0 4px ${t.dot}22` }}
+        />
+        <span className="gw-dot-slow absolute h-2 w-2 rounded-full bg-[#9CA6B4]" />
+        <span
+          className="absolute left-1 top-1 text-[10px] font-bold"
+          style={{ color: t.dot }}
+        >
+          Guardian
+        </span>
+        <span className="absolute left-1 bottom-0 text-[10px] font-bold text-[#9CA6B4]">
+          Traditional
+        </span>
+      </div>
+    );
+  }
+
+  if (variant === "homepin") {
+    return (
+      <div className="relative mx-auto h-full w-full max-w-[220px]">
+        <svg viewBox="0 0 220 140" className="absolute inset-0 h-full w-full">
+          <path
+            d="M24 24 L 196 116"
+            stroke={t.dot}
+            strokeWidth="2"
+            strokeDasharray="1 7"
+            strokeLinecap="round"
+            opacity="0.5"
+          />
+        </svg>
+        <span className="absolute left-3 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md">
+          <Home className="h-4 w-4" style={{ color: t.dot }} strokeWidth={2} />
+        </span>
+        <span className="absolute right-3 bottom-2 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md">
+          <MapPin
+            className="h-4 w-4"
+            style={{ color: t.dot }}
+            strokeWidth={2}
+          />
+        </span>
+        <span
+          className="gw-dot-home absolute h-3 w-3 rounded-full"
+          style={{ backgroundColor: t.dot, boxShadow: `0 0 0 4px ${t.dot}22` }}
+        />
+      </div>
+    );
+  }
+
+  if (variant === "radar") {
+    return (
+      <div className="relative mx-auto flex h-full w-full max-w-[220px] items-center justify-center">
+        <span
+          className="gw-ripple-ring absolute h-10 w-10 rounded-full border-2"
+          style={{ borderColor: t.dot, animationDelay: "0s" }}
+        />
+        <span
+          className="gw-ripple-ring absolute h-10 w-10 rounded-full border-2"
+          style={{ borderColor: t.dot, animationDelay: "0.8s" }}
+        />
+        <span
+          className="gw-ripple-ring absolute h-10 w-10 rounded-full border-2"
+          style={{ borderColor: t.dot, animationDelay: "1.6s" }}
+        />
+        <span
+          className="relative flex h-10 w-10 items-center justify-center rounded-full shadow-lg"
+          style={{ backgroundColor: t.dot }}
+        >
+          <Video className="h-4 w-4 text-white" strokeWidth={2} />
+        </span>
+        <span
+          className="absolute right-5 top-3 flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[9px] font-bold shadow"
+          style={{ color: t.dot }}
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B6B] animate-pulse" />{" "}
+          LIVE
+        </span>
+      </div>
+    );
+  }
+
   return (
-    <div className="group h-full rounded-3xl gw-card p-8 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(21,62,117,0.1)] transition-all">
-      <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF4D6] text-[#153E75] group-hover:scale-110 transition-transform">
-        <Icon className="h-6 w-6" strokeWidth={1.75} />
-      </span>
-      <h3 className="mt-6 font-heading text-2xl font-extrabold text-[#111827]">{title}</h3>
-      <p className="mt-3 text-[#4B5563] leading-relaxed max-w-lg">{body}</p>
+    <div className="relative mx-auto flex h-full w-full max-w-[180px] items-center justify-center">
+      <svg viewBox="0 0 100 110" className="h-24 w-24">
+        <path
+          className="gw-shield-path"
+          d="M50 4 L92 20 V52 C92 82 74 100 50 106 C26 100 8 82 8 52 V20 Z"
+          fill="none"
+          stroke={t.dot}
+          strokeWidth="4"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          pathLength={1}
+        />
+        <path
+          className="gw-check-path"
+          d="M32 54 L45 68 L70 38"
+          fill="none"
+          stroke={t.dot}
+          strokeWidth="6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          pathLength={1}
+        />
+      </svg>
+    </div>
+  );
+};
 
-      <button
-        type="button"
-        onClick={() => setOpen(!open)}
-        className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-[#153E75] hover:text-[#42C7A1] transition-colors"
-        aria-expanded={open}
-      >
-        {open ? "Hide details" : "See how it works"}
-        <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
-      </button>
+/* ---------- Pillar card ---------- */
 
+const PillarCard = ({
+  icon: Icon,
+  variant,
+  title,
+  body,
+  tags,
+  tone,
+}: Pillar) => {
+  const t = TONE_STYLES[tone];
+  return (
+    <div className="group h-full overflow-hidden rounded-3xl gw-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(21,62,117,0.1)]">
       <div
-        className="grid transition-[grid-template-rows] duration-300 ease-out"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+        className="relative h-40 md:h-44 overflow-hidden"
+        style={{ backgroundColor: t.panel }}
       >
-        <div className="overflow-hidden">
-          <ul className="mt-4 space-y-2.5 pt-4 border-t border-[#EEF3FA]">
-            {details.map((d) => (
-              <li key={d} className="flex items-start gap-2.5 text-sm text-[#4B5563]">
-                <CheckCircle2 className="h-4 w-4 mt-0.5 shrink-0 text-[#42C7A1]" strokeWidth={2} />
-                <span>{d}</span>
-              </li>
-            ))}
-          </ul>
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `radial-gradient(${t.dot}33 1px, transparent 1px)`,
+            backgroundSize: "16px 16px",
+          }}
+        />
+        <div className="relative flex h-full items-center justify-center p-4">
+          <PillarVisual variant={variant} tone={tone} />
+        </div>
+        <span
+          className={`absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-md ${t.text}`}
+        >
+          <Icon className="h-5 w-5" strokeWidth={1.75} />
+        </span>
+      </div>
+
+      <div className="p-7 md:p-8">
+        <h3 className="font-heading text-xl md:text-2xl font-extrabold text-[#111827]">
+          {title}
+        </h3>
+        <p className="mt-2.5 text-[#4B5563] leading-relaxed">{body}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className={`rounded-full px-3 py-1 text-xs font-bold ${t.chip} ${t.text}`}
+            >
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
     </div>
@@ -194,7 +389,9 @@ const LiveTrackingMock = () => (
       </div>
       <div className="relative h-[420px] bg-[#EAF1FB] px-4 pt-4">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold text-[#153E75]">Guardian Ride</span>
+          <span className="text-xs font-bold text-[#153E75]">
+            Guardian Ride
+          </span>
           <span className="flex items-center gap-1.5 text-[10px] font-bold text-[#42C7A1]">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#42C7A1] opacity-75" />
@@ -216,11 +413,15 @@ const LiveTrackingMock = () => (
           />
           <g>
             <circle cx="30" cy="30" r="7" fill="#42C7A1" />
-            <text x="42" y="34" fontSize="9" fill="#153E75" fontWeight="700">Home</text>
+            <text x="42" y="34" fontSize="9" fill="#153E75" fontWeight="700">
+              Home
+            </text>
           </g>
           <g>
             <circle cx="190" cy="270" r="7" fill="#FFC83D" />
-            <text x="150" y="288" fontSize="9" fill="#153E75" fontWeight="700">School</text>
+            <text x="150" y="288" fontSize="9" fill="#153E75" fontWeight="700">
+              School
+            </text>
           </g>
           <circle r="6" fill="#153E75">
             <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
@@ -234,8 +435,12 @@ const LiveTrackingMock = () => (
             <BellRing className="h-4 w-4" strokeWidth={1.75} />
           </span>
           <div>
-            <p className="text-xs font-bold text-[#111827]">Arriving in 4 min</p>
-            <p className="text-[10px] text-[#9CA6B4]">Van #GR-014 · Driver verified</p>
+            <p className="text-xs font-bold text-[#111827]">
+              Arriving in 4 min
+            </p>
+            <p className="text-[10px] text-[#9CA6B4]">
+              Van #GR-014 · Driver verified
+            </p>
           </div>
         </div>
       </div>
@@ -258,7 +463,7 @@ const VideoShowcase = () => {
   };
 
   return (
-    <div className="relative h-full rounded-3xl overflow-hidden border border-[#E6EEF9] shadow-[0_8px_30px_rgba(21,62,117,0.06)] bg-black group min-h-[280px] md:min-h-[420px]">
+    <div className="relative h-full rounded-3xl overflow-hidden border border-[#E6EEF9] shadow-[0_8px_30px_rgba(21,62,117,0.06)] bg-black group min-h-70 md:min-h-105 mt-5">
       <video
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
@@ -268,7 +473,6 @@ const VideoShowcase = () => {
         playsInline
         onClick={toggle}
         onEnded={() => setPlaying(false)}
-        // TODO: replace with your own clip, e.g. src="/videos/guardian-ride-demo.mp4"
         src="/video.mp4"
       />
       <button
@@ -280,20 +484,19 @@ const VideoShowcase = () => {
         aria-label={playing ? "Pause video" : "Play video"}
       >
         <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-[#153E75] shadow-lg hover:scale-110 transition-transform">
-          {playing ? <Pause className="h-7 w-7" strokeWidth={2} /> : <Play className="h-7 w-7 translate-x-0.5" strokeWidth={2} />}
+          {playing ? (
+            <Pause className="h-7 w-7" strokeWidth={2} />
+          ) : (
+            <Play className="h-7 w-7 translate-x-0.5" strokeWidth={2} />
+          )}
         </span>
       </button>
-      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/75 to-transparent pointer-events-none">
-        {/* <p className="text-xs font-bold uppercase tracking-widest text-[#FFC83D]">60-second walkthrough</p>
-        <h3 className="mt-1 font-heading text-lg md:text-xl font-extrabold text-white max-w-xs">
-          See a Guardian Ride pick-up, start to finish
-        </h3> */}
-      </div>
+      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" />
     </div>
   );
 };
 
-/* ---------- Contact CTA ---------- */
+/* ---------- Contact CTA (unused block kept as-is) ---------- */
 
 const CONTACT: { icon: LucideIcon; label: string; value: ReactNode }[] = [
   { icon: Phone, label: "Call / WhatsApp", value: "+91 9090119355" },
@@ -307,7 +510,9 @@ export const Features = () => {
   return (
     <section id="features" className="relative py-24 md:py-32 scroll-mt-16">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <Reveal><Chapter number="02" label="Why Guardian Ride Is Different" /></Reveal>
+        <Reveal>
+          <Chapter number="02" label="Why Guardian Ride Is Different" />
+        </Reveal>
         <Reveal delay={0.05}>
           <h2 className="font-heading text-3xl md:text-5xl font-extrabold tracking-tight max-w-3xl text-[#111827]">
             More than just transportation.
@@ -326,11 +531,23 @@ export const Features = () => {
               The numbers parents care about
             </p>
             <div className="mt-4 divide-y divide-[#EEF3FA]">
-              <StatRow label="Students sharing one ride" guardian={7} traditional={35} max={35} />
-              <StatRow label="Avg. commute time (minutes)*" guardian={25} traditional={50} max={50} unit=" min" />
+              <StatRow
+                label="Students sharing one ride"
+                guardian={7}
+                traditional={35}
+                max={35}
+              />
+              <StatRow
+                label="Avg. commute time (minutes)*"
+                guardian={25}
+                traditional={50}
+                max={50}
+                unit=" min"
+              />
             </div>
             <p className="mt-2 text-xs text-[#9CA6B4]">
-              *Estimated from typical Gurugram routes; actual time depends on distance and traffic.
+              *Estimated from typical Gurugram routes; actual time depends on
+              distance and traffic.
             </p>
           </div>
         </Reveal>
@@ -355,8 +572,7 @@ export const Features = () => {
                 Watch the route, not just wait for a text.
               </h3>
               <div className="mt-6">
-                {/* <LiveTrackingMock /> */}
-                <HeroDevice/>
+                <HeroDevice />
               </div>
             </div>
           </Reveal>
@@ -375,8 +591,13 @@ export const Features = () => {
           {TECH.map((t, i) => (
             <Reveal key={t.title} delay={i * 0.05} y={20}>
               <div className="group h-full rounded-2xl bg-[#F3F8FF] border border-[#E6EEF9] p-4 md:p-6 hover:bg-white hover:shadow-[0_12px_30px_rgba(21,62,117,0.08)] transition-all">
-                <t.icon className="h-6 w-6 text-[#153E75] group-hover:scale-110 transition-transform" strokeWidth={1.75} />
-                <p className="mt-4 text-sm font-semibold leading-snug text-[#111827]">{t.title}</p>
+                <t.icon
+                  className="h-6 w-6 text-[#153E75] group-hover:scale-110 transition-transform"
+                  strokeWidth={1.75}
+                />
+                <p className="mt-4 text-sm font-semibold leading-snug text-[#111827]">
+                  {t.title}
+                </p>
               </div>
             </Reveal>
           ))}
@@ -393,7 +614,9 @@ export const Features = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F2E56]/80 to-transparent" />
               <div className="absolute bottom-0 p-8">
-                <p className="text-xs font-bold uppercase tracking-widest text-[#FFC83D]">Trusted Partners for Institutions</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-[#FFC83D]">
+                  Trusted Partners for Institutions
+                </p>
                 <h3 className="mt-2 font-heading text-2xl font-extrabold text-white max-w-sm">
                   We extend your duty of care beyond the school gate.
                 </h3>
@@ -413,47 +636,22 @@ export const Features = () => {
             ))}
           </div>
         </div>
-
-        {/* Contact CTA */}
-        {/* <Reveal delay={0.05} className="mt-20">
-          <div className="rounded-3xl bg-[#0F2E56] p-8 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {CONTACT.map((c) => (
-              <div key={c.label} className="flex items-center gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[#FFC83D]">
-                  <c.icon className="h-5 w-5" strokeWidth={1.75} />
-                </span>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-white/50">{c.label}</p>
-                  <p className="mt-0.5 font-bold text-white">{c.value}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Reveal> */}
       </div>
 
       {/* Marquee */}
       <div className="mt-20 overflow-hidden border-y border-[#E6EEF9] bg-white py-6">
         <style>{`
-          @keyframes gw-marquee-ltr {
-            from { transform: translateX(-50%); }
-            to   { transform: translateX(0%); }
-          }
-          .gw-marquee-track {
-            display: flex;
-            width: max-content;
-            animation: gw-marquee-ltr 28s linear infinite;
-          }
-          .gw-marquee-track:hover {
-            animation-play-state: paused;
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .gw-marquee-track { animation: none; }
-          }
+          @keyframes gw-marquee-ltr { from { transform: translateX(-50%); } to { transform: translateX(0%); } }
+          .gw-marquee-track { display: flex; width: max-content; animation: gw-marquee-ltr 28s linear infinite; }
+          .gw-marquee-track:hover { animation-play-state: paused; }
+          @media (prefers-reduced-motion: reduce) { .gw-marquee-track { animation: none; } }
         `}</style>
         <div className="gw-marquee-track">
           {[...PARTNER_VALUES, ...PARTNER_VALUES].map((v, i) => (
-            <span key={i} className="flex items-center whitespace-nowrap font-heading text-xl md:text-2xl font-extrabold text-[#153E75] px-8">
+            <span
+              key={i}
+              className="flex items-center whitespace-nowrap font-heading text-xl md:text-2xl font-extrabold text-[#153E75] px-8"
+            >
               {v}
               <span className="mx-8 text-[#FFC83D]">●</span>
             </span>
