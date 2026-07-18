@@ -97,7 +97,7 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
 
           <div className="lg:col-span-7">
             <Reveal delay={0.1} y={24}>
-              <form onSubmit={submit} data-testid="contact-form" className="rounded-3xl gw-card p-6 md:p-8">
+              <form onSubmit={submit} data-testid="contact-form" className="rounded-3xl bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(21,62,117,0.06)] border border-[#E6EEF9]">
                 <div className="grid grid-cols-2 gap-2 rounded-2xl bg-[#F3F8FF] p-1.5 mb-6">
                   {ROLES.map((r) => (
                     <button

@@ -116,11 +116,11 @@ export default function OurPromise() {
                   transition={{ duration: 0.35 }}
                 >
                   <div className="rounded-3xl border border-white bg-white p-6 md:p-8 shadow-sm w-full">
-                    <div className="flex items-center gap-3 mb-5">
+                    {/* <div className="flex items-center gap-3 mb-5">
                       <span className="flex h-1 w-20 items-center justify-center rounded-[12px] bg-[#FFF8E7] text-[#153E75]">
                         <Icon icon={tab.icon} className="text-[20px]" />
                       </span>
-                    </div>
+                    </div> */}
 
                     <h3 className="text-lg md:text-xl font-bold text-[#153E75] mb-3">
                       {tab.title}
