@@ -15,6 +15,7 @@ import CTAFooter from "@/components/Footer";
 import { Comparison } from "@/components/Comparison";
 import { ContactForm } from "@/components/ContactForm";
 import WhyItMatter from "@/components/WhyItMatter";
+import OurPromise from "@/components/Our_promise";
 
 export default function Home() {
   return (
@@ -31,9 +32,10 @@ export default function Home() {
         <Features />
         {/* <Stats /> */}
         {/* <Audiences /> */}
+        <OurPromise/>
+        <ContactForm/>
         <Testimonials />
         <FAQ />
-        <ContactForm/>
         <CTAFooter />
       </main>
     </>

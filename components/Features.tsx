@@ -320,7 +320,7 @@ const PillarScroll = () => {
       <div
         ref={scrollRef}
         onScroll={checkScroll}
-        className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory -mx-6 px-6 md:-mx-12 md:px-12"
+        className="flex gap-6 overflow-x-auto pt-2 pb-4 snap-x snap-mandatory -mx-6 px-6 md:-mx-12 md:px-12"
         style={{ scrollbarWidth: "none" }}
       >
         {PILLARS.map((p, i) => (
@@ -345,7 +345,7 @@ const PillarScroll = () => {
 const PillarCard = ({ icon: Icon, variant, title, body, tags, tone }: Pillar) => {
   const t = TONE_STYLES[tone];
   return (
-    <div className="group h-full overflow-hidden rounded-3xl gw-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(21,62,117,0.1)]">
+    <div className="group h-full overflow-hidden rounded-3xl gw-card border border-[#D6DFE9] transition-all duration-300 hover:-translate-y-1 hover:border-[#153E75]/30 hover:shadow-[0_20px_45px_rgba(21,62,117,0.1)]">
       <div className="relative h-40 md:h-44 overflow-hidden" style={{ backgroundColor: t.panel }}>
         <div
           className="absolute inset-0 opacity-30"
