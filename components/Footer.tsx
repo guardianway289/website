@@ -19,24 +19,22 @@ const FOOTER_COLS = [
 export default function CTAFooter() {
   return (
     <>
-      
-
       <footer className="border-t border-line bg-navy-deep pt-16 pb-8 text-white/70">
         <div className="container-gr">
           <div className="grid gap-8 lg:grid-cols-[1.3fr_repeat(3,1fr)] lg:gap-12">
             <div>
-              <div className="flex items-center gap-2.5">
-                <span className="flex h-10 w-10 items-center justify-center text-yellow">
-                  {/* <Icon icon="ph:shield-check-fill" className="text-[22px]" /> */}
-                  <Image src="/logo.png" alt="logo image" height={50} width={50} className="rounded-full"/>
-                </span>
-                <span className="font-display text-[15px] font-extrabold tracking-tight text-white">
-                  GUARDIAN WAY
-                </span>
-              </div>
+              {/* <div className="inline-flex items-center rounded-xl bg-white">
+                <Image
+                  src="/logo.png"
+                  alt="Guardian Way logo"
+                  height={18}
+                  width={120}
+                  className="h-27 w-auto"
+                />
+              </div> */}
               <p className="mt-4 max-w-xs text-[13.5px] leading-relaxed">
-                A student mobility &amp; safety platform for Gurugram
-                families &mdash; not a cab company.
+                A student mobility &amp; safety platform for Gurugram families
+                &mdash; not a cab company.
               </p>
               <div className="mt-5 flex items-center gap-2 text-[13.5px]">
                 <Icon icon="ph:map-pin-bold" className="text-yellow" />
@@ -44,7 +42,7 @@ export default function CTAFooter() {
               </div>
               <div className="mt-2 flex items-center gap-2 text-[13.5px]">
                 <Icon icon="ph:envelope-simple-bold" className="text-yellow" />
-                guardianride.info@gmail.com
+                guardianwayfo@gmail.com
               </div>
             </div>
 
@@ -56,7 +54,10 @@ export default function CTAFooter() {
                 <ul className="mt-4 space-y-3">
                   {col.links.map((l) => (
                     <li key={l}>
-                      <a href="#" className="text-[13.5px] hover:text-yellow transition-colors">
+                      <a
+                        href="#"
+                        className="text-[13.5px] hover:text-yellow transition-colors"
+                      >
                         {l}
                       </a>
                     </li>
@@ -67,19 +68,24 @@ export default function CTAFooter() {
           </div>
 
           <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-7 text-[12.5px] sm:flex-row">
-            <p>&copy; {new Date().getFullYear()} Guardian Way. All rights reserved.</p>
+            <p>
+              &copy; {new Date().getFullYear()} Guardian Way. All rights
+              reserved.
+            </p>
             <div className="flex items-center gap-4">
-              {["ph:instagram-logo-bold", "ph:linkedin-logo-bold", "ph:facebook-logo-bold"].map(
-                (icon) => (
-                  <a
-                    key={icon}
-                    href="#"
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-                  >
-                    <Icon icon={icon} />
-                  </a>
-                )
-              )}
+              {[
+                "ph:instagram-logo-bold",
+                "ph:linkedin-logo-bold",
+                "ph:facebook-logo-bold",
+              ].map((icon) => (
+                <a
+                  key={icon}
+                  href="#"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                >
+                  <Icon icon={icon} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
