@@ -88,7 +88,7 @@ function RouteConcept() {
       </div>
 
       {/* SVG Map */}
-      <div className="relative mt-4 h-[240px] w-full">
+      <div className="relative mt-4 h-80 w-full">
         <svg
           viewBox="0 0 300 240"
           className="absolute inset-0 h-full w-full"
@@ -221,7 +221,7 @@ function RouteConcept() {
       </div>
 
       {/* Legend */}
-      <div className="relative mt-1 flex flex-col gap-2">
+      <div className="relative flex flex-col gap-2 mt-10">
         <div className="flex items-center gap-2.5 rounded-xl bg-[#FFF1F1] border border-[#FFD9D9] px-3 py-2">
           <Bus className="h-4 w-4 text-[#FF6B6B] shrink-0" strokeWidth={2} />
           <span className="text-xs font-semibold text-ink leading-snug">
@@ -311,7 +311,7 @@ const BENEFITS = [
   {
     icon: Bike,
     label: "More Playtime",
-    image: "/more_time.png",
+    image: "/play.png",
   },
   {
     icon: Heart,
@@ -374,70 +374,42 @@ export default function WhyItMatter() {
           <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {BENEFITS.map((b, i) => (
               <Reveal key={b.label} delay={i * 0.07} y={24}>
-                <div
-                  className={`group relative h-full overflow-hidden rounded-2xl border bg-white p-6 min-h-[200px] sm:min-h-0 transition-all duration-500 cursor-default ${
-                    isTouch
-                      ? "border-navy -translate-y-2 shadow-[0_25px_50px_rgba(21,62,117,0.18)]"
-                      : "border-line hover:-translate-y-2 hover:border-navy hover:shadow-[0_25px_50px_rgba(21,62,117,0.18)]"
-                  }`}
-                >
-                  {/* Background color wash */}
+                <div className="group relative h-[260px] overflow-hidden rounded-2xl border border-line transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(21,62,117,0.2)]">
+                  {/* Background image — always visible, no opacity toggling */}
+                  {b.image ? (
+                    <img
+                      src={b.image}
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-navy" />
+                  )}
+
+                  {/* Bottom scrim for text legibility — always on, not hover-only */}
                   <div
-                    className={`pointer-events-none absolute inset-0 bg-linear-to-t from-navy to-navy/90 transition-transform duration-500 ease-out ${
-                      isTouch ? "translate-y-0" : "translate-y-full group-hover:translate-y-0"
-                    }`}
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(10,20,40,0.88) 0%, rgba(10,20,40,0.25) 55%, rgba(10,20,40,0) 75%)",
+                    }}
                   />
 
-                  {/* Image reveal */}
-                  <div
-                    className={`pointer-events-none absolute inset-0 transition-all duration-500 ease-out ${
-                      isTouch
-                        ? "opacity-80 scale-100"
-                        : "opacity-0 scale-110 group-hover:opacity-80 group-hover:scale-100"
-                    }`}
-                  >
-                    {b.image ? (
-                      <img src={b.image} alt="" className="h-full w-full object-cover" />
-                    ) : (
-                      <div
-                        className="h-full w-full"
-                        style={{
-                          backgroundImage:
-                            "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, transparent 60%)",
-                        }}
-                      />
-                    )}
-                  </div>
-
-                  {/* Sheen sweep */}
-                  <div
-                    className={`pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out ${
-                      isTouch ? "translate-x-full" : "-translate-x-full group-hover:translate-x-full"
-                    }`}
-                  />
-
-                  {/* Icon */}
-                  <span
-                    className={`relative inline-flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 ease-out ${
-                      isTouch
-                        ? "bg-yellow text-navy scale-125 -rotate-12 shadow-[0_8px_20px_rgba(250,204,21,0.5)]"
-                        : "bg-yellow/20 text-navy group-hover:scale-125 group-hover:-rotate-12 group-hover:bg-yellow group-hover:text-navy group-hover:shadow-[0_8px_20px_rgba(250,204,21,0.5)]"
-                    }`}
-                    style={{ animation: "iconFloat 3s ease-in-out infinite" }}
-                  >
-                    <b.icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" strokeWidth={1.75} />
+                  {/* Icon chip — fixed style, no float/rotate animation */}
+                  <span className="absolute left-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-yellow shadow-sm">
+                    <b.icon
+                      className="h-[18px] w-[18px] text-navy"
+                      strokeWidth={1.75}
+                    />
                   </span>
 
-                  <p className="relative mt-28 font-semibold text-white transition-colors duration-500 group-hover:text-white">
-                    <span className="bg-blue-300 py-1 px-3 rounded-2xl">{b.label}</span>
-                  </p>
-
-                  {/* Underline */}
-                  <span
-                    className={`relative mt-2 block h-0.5 bg-yellow transition-all duration-500 ease-out ${
-                      isTouch ? "w-10" : "w-0 group-hover:w-10"
-                    }`}
-                  />
+                  {/* Label — anchored to bottom via absolute, not margin hacks */}
+                  <div className="absolute inset-x-4 bottom-4">
+                    <p className="font-semibold text-white text-base leading-snug">
+                      {b.label}
+                    </p>
+                    <span className="mt-1.5 block h-0.5 w-7 rounded-full bg-yellow transition-all duration-300 ease-out group-hover:w-10" />
+                  </div>
                 </div>
               </Reveal>
             ))}
