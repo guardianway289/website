@@ -113,11 +113,11 @@ export default function Hero() {
               href="#contact"
               className="inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-[15px] font-bold text-white shadow-[0_12px_30px_-8px_rgba(21,62,117,0.4)] transition-all hover:bg-navy-deep hover:-translate-y-0.5"
             >
-              Get In Touch
+              Book Now
               <Icon icon="ph:arrow-right-bold" />
             </a>
             <a
-              href="#how-it-works"
+              href="#why-it-matters"
               className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-7 py-3.5 text-[15px] font-bold text-navy shadow-sm transition-all hover:bg-bg/50 hover:-translate-y-0.5"
             >
               See how it works
