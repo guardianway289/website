@@ -6,18 +6,6 @@ import { Car, Bus, Clock, Sunrise, Palette, Bike, Heart } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-function useIsTouch() {
-  const [touch, setTouch] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia("(hover: none)");
-    const handler = (e: MediaQueryListEvent) => setTouch(e.matches);
-    mql.addEventListener("change", handler);
-    setTouch(mql.matches);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
-  return touch;
-}
-
 /* ─── Reveal helper ──────────────────────────────────────────────────── */
 function Reveal({
   children,
@@ -88,7 +76,7 @@ function RouteConcept() {
       </div>
 
       {/* SVG Map */}
-      <div className="relative mt-4 h-80 w-full">
+      <div className="relative mt-4 h-52 w-full">
         <svg
           viewBox="0 0 300 240"
           className="absolute inset-0 h-full w-full"
@@ -298,32 +286,14 @@ function ChildhoodCarousel() {
 
 /* ─── Benefit Cards ──────────────────────────────────────────────────── */
 const BENEFITS = [
-  {
-    icon: Sunrise,
-    label: "More Time Every Morning",
-    image: "/more_time.png",
-  },
-  {
-    icon: Palette,
-    label: "Discover New Hobbies",
-    image: "/hobbies.png",
-  },
-  {
-    icon: Bike,
-    label: "More Playtime",
-    image: "/play.png",
-  },
-  {
-    icon: Heart,
-    label: "More Family Time",
-    image: "/more_family_time.png",
-  },
+  { icon: Sunrise, label: "More Time Every Morning" },
+  { icon: Palette, label: "Discover New Hobbies" },
+  { icon: Bike, label: "More Playtime" },
+  { icon: Heart, label: "More Family Time" },
 ];
 
 /* ─── Main Section Export ────────────────────────────────────────────── */
 export default function WhyItMatter() {
-  const isTouch = useIsTouch();
-
   return (
     <section
       id="why-it-matters"
@@ -374,42 +344,17 @@ export default function WhyItMatter() {
           <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {BENEFITS.map((b, i) => (
               <Reveal key={b.label} delay={i * 0.07} y={24}>
-                <div className="group relative h-[260px] overflow-hidden rounded-2xl border border-line transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(21,62,117,0.2)]">
-                  {/* Background image — always visible, no opacity toggling */}
-                  {b.image ? (
-                    <img
-                      src={b.image}
-                      alt=""
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-navy" />
-                  )}
-
-                  {/* Bottom scrim for text legibility — always on, not hover-only */}
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(10,20,40,0.88) 0%, rgba(10,20,40,0.25) 55%, rgba(10,20,40,0) 75%)",
-                    }}
-                  />
-
-                  {/* Icon chip — fixed style, no float/rotate animation */}
-                  <span className="absolute left-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-yellow shadow-sm">
-                    <b.icon
-                      className="h-[18px] w-[18px] text-navy"
-                      strokeWidth={1.75}
-                    />
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-line bg-white p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-navy hover:shadow-[0_16px_32px_rgba(21,62,117,0.15)]">
+                  <span
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-yellow/20 text-navy transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-yellow group-hover:shadow-[0_6px_16px_rgba(250,204,21,0.4)]"
+                    style={{ animation: `iconFloat 3s ease-in-out ${i * 0.4}s infinite` }}
+                  >
+                    <b.icon className="h-5 w-5" strokeWidth={1.75} />
                   </span>
-
-                  {/* Label — anchored to bottom via absolute, not margin hacks */}
-                  <div className="absolute inset-x-4 bottom-4">
-                    <p className="font-semibold text-white text-base leading-snug">
-                      {b.label}
-                    </p>
-                    <span className="mt-1.5 block h-0.5 w-7 rounded-full bg-yellow transition-all duration-300 ease-out group-hover:w-10" />
-                  </div>
+                  <p className="mt-4 font-semibold text-ink transition-colors duration-300 group-hover:text-navy">
+                    {b.label}
+                  </p>
+                  <span className="mt-2 block h-0.5 w-0 bg-yellow transition-all duration-300 ease-out group-hover:w-10" />
                 </div>
               </Reveal>
             ))}
