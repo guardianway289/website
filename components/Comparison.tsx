@@ -111,16 +111,15 @@ export const Comparison = () => {
               There should be a{" "}
               <span className="text-[#153E75]">fourth choice.</span>
             </h3>
-            <p className="mt-5 max-w-lg text-center text-[16px] text-[#4B5563] leading-relaxed">
-              One that doesn&apos;t ask you to compromise on safety, time, or convenience.
-              That&apos;s exactly what we built.
+            <p className="mt-5 max-w-3xl text-center text-[16px] text-[#4B5563] leading-relaxed">
+              One that doesn&apos;t ask you to compromise on safety, time, or convenience.That&apos;s exactly what we built.
             </p>
-            <a
+            {/* <a
               href="#features"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#153E75] px-7 py-3.5 text-[15px] font-bold text-white shadow-[0_12px_30px_-8px_rgba(21,62,117,0.4)] transition-all hover:bg-[#0c2545] hover:-translate-y-0.5"
             >
               Discover Guardian Way
-            </a>
+            </a> */}
           </div>
         </Reveal>
       </div>
