@@ -187,7 +187,7 @@ const PillarCard = ({ icon: Icon, title, body, details }: Pillar) => {
 /* ---------- Live tracking phone mockup (animated route) ---------- */
 
 const LiveTrackingMock = () => (
-  <div className="relative mx-auto w-[260px] sm:w-[280px]">
+  <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[280px]">
     <div className="rounded-[2.5rem] border-8 border-[#111827] bg-white shadow-2xl overflow-hidden">
       <div className="h-6 bg-[#111827] flex items-center justify-center">
         <span className="h-1.5 w-16 rounded-full bg-[#374151]" />
@@ -258,7 +258,7 @@ const VideoShowcase = () => {
   };
 
   return (
-    <div className="relative h-full rounded-3xl overflow-hidden border border-[#E6EEF9] shadow-[0_8px_30px_rgba(21,62,117,0.06)] bg-black group min-h-[420px]">
+    <div className="relative h-full rounded-3xl overflow-hidden border border-[#E6EEF9] shadow-[0_8px_30px_rgba(21,62,117,0.06)] bg-black group min-h-[280px] md:min-h-[420px]">
       <video
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
@@ -374,7 +374,7 @@ export const Features = () => {
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
           {TECH.map((t, i) => (
             <Reveal key={t.title} delay={i * 0.05} y={20}>
-              <div className="group h-full rounded-2xl bg-[#F3F8FF] border border-[#E6EEF9] p-6 hover:bg-white hover:shadow-[0_12px_30px_rgba(21,62,117,0.08)] transition-all">
+              <div className="group h-full rounded-2xl bg-[#F3F8FF] border border-[#E6EEF9] p-4 md:p-6 hover:bg-white hover:shadow-[0_12px_30px_rgba(21,62,117,0.08)] transition-all">
                 <t.icon className="h-6 w-6 text-[#153E75] group-hover:scale-110 transition-transform" strokeWidth={1.75} />
                 <p className="mt-4 text-sm font-semibold leading-snug text-[#111827]">{t.title}</p>
               </div>

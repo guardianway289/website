@@ -27,7 +27,7 @@ export default function HowItWorks() {
 
         <div className="relative mt-16">
           <div className="absolute left-0 right-0 top-8 hidden h-[3px] bg-gradient-to-r from-navy/10 via-navy/25 to-navy/10 lg:block" />
-          <div className="grid gap-10 lg:grid-cols-6 lg:gap-4">
+          <div className="grid gap-8 lg:grid-cols-6 lg:gap-4">
             {STEPS.map((s, i) => (
               <motion.div
                 key={s.title}

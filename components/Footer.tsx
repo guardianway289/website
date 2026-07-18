@@ -23,7 +23,7 @@ export default function CTAFooter() {
 
       <footer className="border-t border-line bg-navy-deep pt-16 pb-8 text-white/70">
         <div className="container-gr">
-          <div className="grid gap-12 lg:grid-cols-[1.3fr_repeat(3,1fr)]">
+          <div className="grid gap-8 lg:grid-cols-[1.3fr_repeat(3,1fr)] lg:gap-12">
             <div>
               <div className="flex items-center gap-2.5">
                 <span className="flex h-10 w-10 items-center justify-center text-yellow">

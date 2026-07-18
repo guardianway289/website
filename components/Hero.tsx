@@ -46,7 +46,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pt-30 pb-16 lg:pt-39 lg:pb-24 h-screen"
+      className="relative overflow-hidden pt-30 pb-16 lg:pt-39 lg:pb-24 min-h-screen"
     >
       {/* backdrop */}
       <div className="absolute inset-0 -z-10">
@@ -167,7 +167,7 @@ export default function Hero() {
           <motion.div
             variants={floatUp}
             animate="animate"
-            className="absolute -left-6 top-[15%] flex items-center gap-3 rounded-2xl border border-line/40 bg-white/95 p-3.5 shadow-[0_20px_40px_rgba(15,27,45,0.1)] backdrop-blur-sm sm:-left-10"
+            className="hidden sm:flex absolute left-2 top-[15%] items-center gap-3 rounded-2xl border border-line/40 bg-white/95 p-3.5 shadow-[0_20px_40px_rgba(15,27,45,0.1)] backdrop-blur-sm sm:-left-10"
           >
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mint/10 text-mint">
               <Icon icon="ph:shield-check-fill" className="text-[22px]" />
@@ -186,7 +186,7 @@ export default function Hero() {
           <motion.div
             variants={floatDown}
             animate="animate"
-            className="absolute -right-4 bottom-[12%] flex items-center gap-3 rounded-2xl border border-line/40 bg-white/95 p-3.5 shadow-[0_20px_40px_rgba(15,27,45,0.1)] backdrop-blur-sm sm:-right-8"
+            className="hidden sm:flex absolute right-2 bottom-[12%] items-center gap-3 rounded-2xl border border-line/40 bg-white/95 p-3.5 shadow-[0_20px_40px_rgba(15,27,45,0.1)] backdrop-blur-sm sm:-right-8"
           >
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-yellow/15 text-yellow-deep">
               <Icon icon="ph:clock-fill" className="text-[22px]" />
