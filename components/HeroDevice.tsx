@@ -270,7 +270,7 @@ export default function HeroDevice() {
         onClick={() => setTab("map")}
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -bottom-18 left-2 flex w-[196px] items-center gap-2 rounded-2xl border border-line bg-white p-3.5 text-left shadow-[0_20px_45px_-15px_rgba(15,27,45,0.25)] transition-transform hover:-translate-y-0.5 sm:-left-10"
+        className="absolute -bottom-14 left-2 flex w-[196px] items-center gap-2 rounded-2xl border border-line bg-white p-3.5 text-left shadow-[0_20px_45px_-15px_rgba(15,27,45,0.25)] transition-transform hover:-translate-y-0.5 sm:-left-10"
       >
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mint-soft text-mint">
           <Icon icon="ph:gps-fix-bold" />
