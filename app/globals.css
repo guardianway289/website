@@ -16,8 +16,6 @@
   --ink-soft: #52627a;
   --line: #e2e9f2;
 
-  /* Manrope / Plus Jakarta Sans are self-hosted via @fontsource (see
-     app/layout.tsx imports) so they work with no external network call. */
   --font-manrope: "Manrope", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
   --font-jakarta: "Plus Jakarta Sans", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
 }
@@ -63,6 +61,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, .font-display {
@@ -111,7 +110,7 @@ button:focus-visible,
   display: none;
 }
 
-  @keyframes iconFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-4px); }
-  }
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}

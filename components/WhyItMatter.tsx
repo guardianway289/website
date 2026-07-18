@@ -6,6 +6,18 @@ import { Car, Bus, Clock, Sunrise, Palette, Bike, Heart } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+function useIsTouch() {
+  const [touch, setTouch] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(hover: none)");
+    const handler = (e: MediaQueryListEvent) => setTouch(e.matches);
+    mql.addEventListener("change", handler);
+    setTouch(mql.matches);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
+  return touch;
+}
+
 /* ─── Reveal helper ──────────────────────────────────────────────────── */
 function Reveal({
   children,
@@ -310,6 +322,8 @@ const BENEFITS = [
 
 /* ─── Main Section Export ────────────────────────────────────────────── */
 export default function WhyItMatter() {
+  const isTouch = useIsTouch();
+
   return (
     <section
       id="why-it-matters"
@@ -357,21 +371,33 @@ export default function WhyItMatter() {
           </Reveal>
 
           {/* Benefit cards — 7 cols, 2×2 */}
-          <div className="md:col-span-7 grid grid-cols-2 gap-4">
+          <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {BENEFITS.map((b, i) => (
               <Reveal key={b.label} delay={i * 0.07} y={24}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-line bg-white p-6 transition-all duration-500 cursor-default hover:-translate-y-2 hover:border-navy hover:shadow-[0_25px_50px_rgba(21,62,117,0.18)]">
-                  {/* Background color wash that rises from bottom on hover */}
-                  <div className="pointer-events-none absolute inset-0 translate-y-full bg-linear-to-t from-navy to-navy/90 transition-transform duration-500 ease-out group-hover:translate-y-0" />
+                <div
+                  className={`group relative h-full overflow-hidden rounded-2xl border bg-white p-6 min-h-[200px] sm:min-h-0 transition-all duration-500 cursor-default ${
+                    isTouch
+                      ? "border-navy -translate-y-2 shadow-[0_25px_50px_rgba(21,62,117,0.18)]"
+                      : "border-line hover:-translate-y-2 hover:border-navy hover:shadow-[0_25px_50px_rgba(21,62,117,0.18)]"
+                  }`}
+                >
+                  {/* Background color wash */}
+                  <div
+                    className={`pointer-events-none absolute inset-0 bg-linear-to-t from-navy to-navy/90 transition-transform duration-500 ease-out ${
+                      isTouch ? "translate-y-0" : "translate-y-full group-hover:translate-y-0"
+                    }`}
+                  />
 
-                  {/* Image reveal — fades + scales in behind content on hover */}
-                  <div className="pointer-events-none absolute inset-0 opacity-0 scale-110 transition-all duration-500 ease-out group-hover:opacity-80 group-hover:scale-100">
+                  {/* Image reveal */}
+                  <div
+                    className={`pointer-events-none absolute inset-0 transition-all duration-500 ease-out ${
+                      isTouch
+                        ? "opacity-80 scale-100"
+                        : "opacity-0 scale-110 group-hover:opacity-80 group-hover:scale-100"
+                    }`}
+                  >
                     {b.image ? (
-                      <img
-                        src={b.image}
-                        alt=""
-                        className="h-full w-full object-cover"
-                      />
+                      <img src={b.image} alt="" className="h-full w-full object-cover" />
                     ) : (
                       <div
                         className="h-full w-full"
@@ -384,25 +410,34 @@ export default function WhyItMatter() {
                   </div>
 
                   {/* Sheen sweep */}
-                  <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
+                  <div
+                    className={`pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out ${
+                      isTouch ? "translate-x-full" : "-translate-x-full group-hover:translate-x-full"
+                    }`}
+                  />
 
-                  {/* Icon: floats continuously, then bounces + rotates + color-shifts on hover */}
+                  {/* Icon */}
                   <span
-                    className="relative inline-flex h-11 w-11 items-center justify-center rounded-xl bg-yellow/20 text-navy transition-all duration-300 ease-out group-hover:scale-125 group-hover:-rotate-12 group-hover:bg-yellow group-hover:text-navy group-hover:shadow-[0_8px_20px_rgba(250,204,21,0.5)]"
+                    className={`relative inline-flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 ease-out ${
+                      isTouch
+                        ? "bg-yellow text-navy scale-125 -rotate-12 shadow-[0_8px_20px_rgba(250,204,21,0.5)]"
+                        : "bg-yellow/20 text-navy group-hover:scale-125 group-hover:-rotate-12 group-hover:bg-yellow group-hover:text-navy group-hover:shadow-[0_8px_20px_rgba(250,204,21,0.5)]"
+                    }`}
                     style={{ animation: "iconFloat 3s ease-in-out infinite" }}
                   >
-                    <b.icon
-                      className="h-5 w-5 transition-transform duration-300 group-hover:scale-110"
-                      strokeWidth={1.75}
-                    />
+                    <b.icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" strokeWidth={1.75} />
                   </span>
 
-                  <p className="relative mt-4 font-semibold text-ink transition-colors duration-500 group-hover:text-white">
-                    {b.label}
+                  <p className="relative mt-28 font-semibold text-white transition-colors duration-500 group-hover:text-white">
+                    <span className="bg-blue-300 py-1 px-3 rounded-2xl">{b.label}</span>
                   </p>
 
-                  {/* Underline that draws in on hover */}
-                  <span className="relative mt-2 block h-0.5 w-0 bg-yellow transition-all duration-500 ease-out group-hover:w-10" />
+                  {/* Underline */}
+                  <span
+                    className={`relative mt-2 block h-0.5 bg-yellow transition-all duration-500 ease-out ${
+                      isTouch ? "w-10" : "w-0 group-hover:w-10"
+                    }`}
+                  />
                 </div>
               </Reveal>
             ))}

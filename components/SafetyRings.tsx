@@ -41,10 +41,10 @@ export default function SafetyRings() {
           </p>
         </div>
 
-        <div className="mt-16 grid items-center gap-12 lg:grid-cols-[460px_1fr]">
+        <div className="mt-16 grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
           {/* concentric rings */}
-          <div className="relative mx-auto" style={{ width: size, height: size }}>
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+          <div className="relative mx-auto w-full max-w-[460px] aspect-square">
+            <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`}>
               {LAYERS.map((_, i) => {
                 const r = baseR + i * step;
                 const isActive = active === i;

@@ -40,7 +40,7 @@ export default function Stats() {
   return (
     <section className="py-24 bg-navy-deep">
       <div className="container-gr">
-        <div className="grid grid-cols-2 gap-10 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-10">
           {STATS.map((s, i) => (
             <motion.div
               key={s.label}
