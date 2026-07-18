@@ -32,7 +32,7 @@ export default function Navbar() {
     >
       <nav className="container-gr flex items-center justify-between h-19">
         {/* Mockup Shield Logo & Text */}
-        <a href="#top" className="flex items-center gap-2 shrink-0">
+        <a href="#top" className="flex items-center gap-2 shrink-0 -mx-5">
           <Image src="/logo.png" alt="logo image" height={200} width={200}/>
         </a>
 

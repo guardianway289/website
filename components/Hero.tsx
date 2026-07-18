@@ -46,7 +46,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pt-30 pb-16 lg:pt-39 lg:pb-24 min-h-screen"
+      className="relative overflow-hidden pb-10 lg:pt-39 lg:pb-24 min-h-screen"
     >
       {/* backdrop */}
       <div className="absolute inset-0 -z-10">
