@@ -320,7 +320,7 @@ const PillarScroll = () => {
       <div
         ref={scrollRef}
         onScroll={checkScroll}
-        className="flex gap-6 overflow-x-auto pt-2 pb-4 snap-x snap-mandatory -mx-6 px-6 md:-mx-12 md:px-12"
+        className="flex gap-6 overflow-x-auto pt-2 pb-4 snap-x snap-mandatory -mx-6 px-6 md:-mx-12 md:px-12 scroll-pl-6 md:scroll-pl-12"
         style={{ scrollbarWidth: "none" }}
       >
         {PILLARS.map((p, i) => (

@@ -67,7 +67,7 @@ export default function SafetyRings() {
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-navy text-yellow shadow-[0_0_0_8px_rgba(21,62,117,0.08)]">
-                <Image src="/logo.png" alt="Gurdain Way Logo" height={100} width={100}/>
+                <Image src="/logo.png" alt="Gurdain Way Logo" height={100} width={100} priority style={{ width: "auto", height: "auto" }} />
               </div>
             </div>
             {active !== null && (
