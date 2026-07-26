@@ -103,7 +103,7 @@ const PILLARS: Pillar[] = [
     status: "Live 1080p",
     title: "Complete Visibility",
     body: "Real-time GPS tracking, live dual dashcam feeds (in-cabin & road view), and instant delay alerts pushed directly to parent phones.",
-    tags: ["Live GPS", "Dual dashcam", "Near-me alerts"],
+    tags: ["Live GPS", "Dual dashcam", "Near-me notifications"],
     span: "md:col-span-5",
     tone: "navy",
   },
@@ -624,20 +624,20 @@ const PillarCard = ({
       {/* Body content */}
       <div className="relative p-7 md:p-8 flex flex-col justify-between flex-1">
         <div>
-          <h3 className="flex items-center gap-3.5 font-heading text-xl md:text-2xl font-extrabold text-[#111827]">
+          <h3 className="flex items-center gap-3.5 font-heading text-xl md:text-xl font-extrabold text-[#111827]">
             <span
               className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${t.chip} ${t.text} shadow-xs transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}
             >
-              <Icon className="h-5.5 w-5.5" strokeWidth={2} />
+              <Icon className="h-5 w-5" strokeWidth={2} />
             </span>
             {title}
           </h3>
           <p className="mt-3 text-[14.5px] text-[#4B5563] leading-relaxed">
-            {body}
+            {/* {body} */}
           </p>
         </div>
 
-        <div className="mt-5 flex flex-wrap gap-2 pt-4 border-t border-[#F3F4F6]">
+        <div className="flex flex-wrap gap-2 pt-4 border-t border-[#F3F4F6]">
           {tags.map((tag) => (
             <span
               key={tag}
