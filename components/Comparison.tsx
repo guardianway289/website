@@ -12,7 +12,7 @@ const OPTIONS = [
     title: "Private Van",
     status: "Unverified",
     subtitle: "Often chosen because it's convenient.",
-    concern: "lack_of_safety_transparency",
+    concern: "lack of safety transparency",
     impact: 4,
     tone: {
       accent: "#EF4444",
@@ -34,7 +34,7 @@ const OPTIONS = [
     title: "Traditional School Bus",
     status: "Fixed schedule",
     subtitle: "Reliable for many schools — but not every family.",
-    concern: "wasted_travel_and_wait_time",
+    concern: "wasted travel and wait time",
     impact: 3,
     tone: {
       accent: "#F59E0B",
@@ -57,7 +57,7 @@ const OPTIONS = [
     title: "Parent Drop-off",
     status: "Manual only",
     subtitle: "The safest option — but not always practical.",
-    concern: "daily_disruption_and_stress",
+    concern: "daily disruption and stress",
     impact: 2,
     tone: {
       accent: "#8B5CF6",
@@ -120,12 +120,7 @@ export const Comparison = () => {
     <section className="relative py-24 md:py-32 bg-[#F3F8FF] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <Reveal>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#153E75]/15 bg-white/70 px-3 py-1 mb-5">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#153E75] animate-pulse" />
-            <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#153E75]">
-              3 routes evaluated
-            </span>
-          </div>
+          
           <h2 className="font-heading text-3xl md:text-5xl font-extrabold tracking-tight text-[#111827]">
             Parents deserve better choices
           </h2>
@@ -163,7 +158,7 @@ export const Comparison = () => {
                     />
 
                     {/* Impact meter */}
-                    <div className="relative flex gap-1 px-6 pt-6 sm:px-7 sm:pt-7 md:px-8 md:pt-8">
+                    {/* <div className="relative flex gap-1 px-6 pt-6 sm:px-7 sm:pt-7 md:px-8 md:pt-8">
                       {Array.from({ length: IMPACT_MAX }).map((_, seg) => (
                         <span
                           key={seg}
@@ -171,15 +166,13 @@ export const Comparison = () => {
                           style={{ backgroundColor: seg < opt.impact ? opt.tone.accent : "#EEF2F7" }}
                         />
                       ))}
-                    </div>
+                    </div> */}
 
                     <div className="relative p-6 pt-5 sm:p-7 sm:pt-6 md:p-8 md:pt-6 flex flex-col justify-between flex-1">
                       <div>
                         {/* Eyebrow: system id + live status */}
                         <div className="flex items-center justify-between gap-2 mb-3.5">
-                          <span className="font-mono text-[10.5px] font-semibold tracking-[0.12em] text-[#9CA3AF]">
-                            {opt.code}
-                          </span>
+                         
                           <span
                             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10.5px] font-bold uppercase tracking-wider"
                             style={{ backgroundColor: opt.tone.tagBg, color: opt.tone.tagText }}
@@ -233,7 +226,7 @@ export const Comparison = () => {
                         <div className="flex items-center gap-2">
                           <AlertTriangle className="h-3.5 w-3.5 shrink-0" style={{ color: opt.tone.accent }} />
                           <code className="font-mono text-[11.5px] font-semibold truncate" style={{ color: opt.tone.accent }}>
-                            risk: {opt.concern}
+                            {opt.concern}
                           </code>
                         </div>
                       </div>

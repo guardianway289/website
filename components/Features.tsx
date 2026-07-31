@@ -88,8 +88,8 @@ const PILLARS: Pillar[] = [
   {
     icon: Home,
     variant: "homepin",
-    code: "02 => DOORSTEP PICKUP",
-    status: "Door to door",
+    code: "02 => DIRECT    PICKUP",
+    status: "Home Pick Up",
     title: "Home Pick-up & Drop",
     body: "Direct pick-up & drop right from your home gate. No standing at bus stops — a stress-free morning routine for working parents.",
     tags: ["Door to door", "Zero stop delays", "Parent peace"],
@@ -324,15 +324,15 @@ const PillarVisual = ({
               </span>
               <div>
                 <p className="text-[12px] font-extrabold text-white">
-                  Doorstep Pick-up
+                  Home Pick-up
                 </p>
                 <p className="text-[10px] text-[#A5C3EB]">
                   42 Maple Ave · Sector 54
                 </p>
               </div>
             </div>
-            <span className="rounded-full bg-[#0D9488]/30 px-2.5 py-0.5 font-mono text-[10px] font-extrabold text-[#2DD4BF] border border-[#0D9488]/40">
-              0m Walk
+            <span className="rounded-full bg-[#0D9488]/30 px-2.5 py-0.5 font-mono text-xs font-extrabold text-[#2DD4BF] border border-[#0D9488]/40">
+              0 meter Walk
             </span>
           </div>
 
@@ -421,14 +421,14 @@ const PillarVisual = ({
         <div className="flex items-center justify-between gap-2 pb-2 md:pb-2.5 border-b border-[#F1F5FB]">
           <div className="flex items-center gap-2 md:gap-2.5 min-w-0">
             <div className="relative flex h-8 w-8 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#153E75] to-[#2C5FA3] text-[10px] md:text-xs font-extrabold text-white shadow-sm">
-              RK
+              VK
               <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5 md:h-4 md:w-4 items-center justify-center rounded-full bg-[#0D9488] text-[8px] md:text-[9px] text-white ring-2 ring-white font-bold">
                 ✓
               </span>
             </div>
             <div className="min-w-0">
               <h4 className="font-heading text-[11px] md:text-sm font-extrabold text-[#111827] truncate">
-                Rajesh Kumar
+                Virender kumar
               </h4>
               <span className="font-mono text-[9px] md:text-[10.5px] font-bold text-[#153E75] bg-[#EAF1FB] px-1.5 py-0.5 rounded-full whitespace-nowrap">
                 Senior Driver
@@ -494,33 +494,39 @@ const PillarScroll = () => {
 
   return (
     <div className="relative mt-8">
-      {/* left arrow */}
-      {canScrollLeft && (
-        <button
-          onClick={() => scroll("left")}
-          aria-label="Scroll left"
-          className="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-white border border-[#E6EEF9] shadow-[0_4px_14px_rgba(21,62,117,0.12)] text-[#153E75] transition-all hover:shadow-[0_8px_24px_rgba(21,62,117,0.18)] hover:-translate-x-0.5"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-      )}
+      {/* Top Header Controls (Mobile & Desktop) */}
+      <div className="flex items-center justify-between gap-4 mb-6">
+        <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#153E75]">
+          <span className="h-2 w-2 rounded-full bg-[#3CB995] animate-pulse" />
+          <span>04 SAFETY PILLARS</span>
+        </div>
 
-      {/* right arrow */}
-      {canScrollRight && (
-        <button
-          onClick={() => scroll("right")}
-          aria-label="Scroll right"
-          className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-white border border-[#E6EEF9] shadow-[0_4px_14px_rgba(21,62,117,0.12)] text-[#153E75] transition-all hover:shadow-[0_8px_24px_rgba(21,62,117,0.18)] hover:translate-x-0.5"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
-      )}
+        {/* High-Contrast Navigation Buttons (Visible on Mobile & Desktop) */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => scroll("left")}
+            disabled={!canScrollLeft}
+            aria-label="Scroll pillars left"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-md hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            disabled={!canScrollRight}
+            aria-label="Scroll pillars right"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-md hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
 
-      {/* scrollable track */}
+      {/* Scrollable track */}
       <div
         ref={scrollRef}
         onScroll={checkScroll}
-        className="flex gap-6 overflow-x-auto pt-2 pb-4 snap-x snap-mandatory -mx-6 px-6 md:-mx-12 md:px-12 scroll-pl-6 md:scroll-pl-12"
+        className="flex gap-6 overflow-x-auto pt-2 pb-4 snap-x snap-mandatory -mx-6 px-6 md:-mx-12 md:px-12 scroll-pl-6 md:scroll-pl-12 scrollbar-none"
         style={{ scrollbarWidth: "none" }}
       >
         {PILLARS.map((p, i) => (
@@ -535,11 +541,13 @@ const PillarScroll = () => {
         ))}
       </div>
 
-      {/* mobile swipe hint */}
-      <div className="flex md:hidden items-center justify-center gap-2 mt-3 text-xs text-[#9CA6B4]">
-        <ChevronLeft className="h-3.5 w-3.5" />
-        <span>Swipe to explore</span>
-        <ChevronRight className="h-3.5 w-3.5" />
+      {/* Mobile swipe hint */}
+      <div className="flex items-center justify-between mt-4 text-xs font-semibold text-[#52627A]">
+        <div className="flex items-center gap-1.5">
+          <ChevronLeft className="h-3.5 w-3.5 text-[#153E75]" />
+          <span>Swipe or tap arrows to explore pillars</span>
+          <ChevronRight className="h-3.5 w-3.5 text-[#153E75]" />
+        </div>
       </div>
     </div>
   );
@@ -616,7 +624,7 @@ const PillarCard = ({
             style={{ borderColor: t.dot }}
           />
         ))}
-        <div className="relative z-10 w-full flex justify-center items-center transition-transform duration-300 group-hover:scale-[1.02] h-[300px]">
+        <div className="relative z-10 w-full flex justify-center items-center transition-transform duration-300 group-hover:scale-[1.02] h-75">
           <PillarVisual variant={variant} tone={tone} />
         </div>
       </div>
@@ -707,7 +715,7 @@ export const Features = () => {
   return (
     <section
       id="features"
-      className="relative py-24 md:py-32 scroll-mt-[-40px]"
+      className="relative py-24 md:py-32 -scroll-mt-10"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <Reveal>
