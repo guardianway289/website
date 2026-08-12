@@ -85,17 +85,7 @@ const PILLARS: Pillar[] = [
     span: "md:col-span-7",
     tone: "gold",
   },
-  {
-    icon: Home,
-    variant: "homepin",
-    code: "02 => DIRECT    PICKUP",
-    status: "Home Pick Up",
-    title: "Home Pick-up & Drop",
-    body: "Direct pick-up & drop right from your home gate. No standing at bus stops — a stress-free morning routine for working parents.",
-    tags: ["Door to door", "Zero stop delays", "Parent peace"],
-    span: "md:col-span-5",
-    tone: "mint",
-  },
+
   {
     icon: Radar,
     variant: "radar",
@@ -116,6 +106,17 @@ const PILLARS: Pillar[] = [
     body: "Police-verified, professionally trained drivers, AI-monitored driving performance, and emergency vehicle immobilization.",
     tags: ["Police-verified", "AI-monitored", "Strict background check"],
     span: "md:col-span-7",
+    tone: "mint",
+  },
+  {
+    icon: Home,
+    variant: "homepin",
+    code: "02 => DIRECT    PICKUP",
+    status: "Home Pick Up",
+    title: "Home Pick-up & Drop",
+    body: "Direct pick-up & drop right from your home gate. No standing at bus stops — a stress-free morning routine for working parents.",
+    tags: ["Door to door", "Zero stop delays", "Parent peace"],
+    span: "md:col-span-5",
     tone: "mint",
   },
 ];
@@ -540,15 +541,6 @@ const PillarScroll = () => {
           </Reveal>
         ))}
       </div>
-
-      {/* Mobile swipe hint */}
-      <div className="flex items-center justify-between mt-4 text-xs font-semibold text-[#52627A]">
-        <div className="flex items-center gap-1.5">
-          <ChevronLeft className="h-3.5 w-3.5 text-[#153E75]" />
-          <span>Swipe or tap arrows to explore pillars</span>
-          <ChevronRight className="h-3.5 w-3.5 text-[#153E75]" />
-        </div>
-      </div>
     </div>
   );
 };
@@ -713,13 +705,10 @@ const VideoShowcase = () => {
 
 export const Features = () => {
   return (
-    <section
-      id="features"
-      className="relative py-24 md:py-32 -scroll-mt-10"
-    >
+    <section id="features" className="relative py-24 md:py-32 -scroll-mt-10">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <Reveal>
-          <Chapter number="02" label="Why Guardian Ride Is Different" />
+          <Chapter number="02" label="Why Guardian Way Is Different" />
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="font-heading text-3xl md:text-5xl font-extrabold tracking-tight max-w-3xl text-[#111827]">

@@ -8,10 +8,8 @@ interface Testimonial {
   role: string;
   location: string;
   quote: string;
-  tag: string;
   rating: number;
   initials: string;
-  badge: string;
 }
 
 const TESTIMONIALS: Testimonial[] = [
@@ -20,110 +18,63 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Parent of 8yo",
     location: "DLF Phase 5, Gurgaon",
     quote:
-      "The moment you said I'd be able to see the van live on a map with precise ETA, I was sold. Commuting on Golf Course Road during school hours used to be a complete black box.",
-    tag: "Live Map Tracking",
+      "The school bus comes too early. My child starts the day feeling tired. A shorter route would make a real difference.",
     rating: 5,
     initials: "PM",
-    badge: "Early Access Parent",
   },
   {
     name: "Rohit Sharma",
     role: "Parent of 10yo",
     location: "Sector 56, Gurgaon",
     quote:
-      "Six or seven kids in a dedicated, vetted van instead of thirty overcrowded on an unmonitored bus? That alone convinced our family to switch on day one.",
-    tag: "Small Batches",
+      "I wish there was a transport service with fewer stops and more personal attention.",
     rating: 5,
     initials: "RS",
-    badge: "Verified Parent",
   },
   {
     name: "Anjali Verma",
     role: "Working Mother",
     location: "Sohna Road, Gurgaon",
     quote:
-      "Doorstep pick-up means one less stressful trip across Gurgaon traffic every morning. I didn't realise how much time it saves until we tried it.",
-    tag: "Doorstep Pick-up",
+      "Home pickup would make our mornings so much less stressful. We wouldn't have to rush to a pickup point every day.",
     rating: 5,
     initials: "AV",
-    badge: "Verified Parent",
   },
   {
     name: "Dr. Vikram Rao",
     role: "Father of 2",
     location: "Nirvana Country, Gurgaon",
     quote:
-      "The real-time driver background checks and female attendant aboard every single ride sealed the deal for us. My daughter feels 100% safe.",
-    tag: "Vetted Staff & Nanny",
+      "If someone picked up my child directly from home, I'd finally have 20–30 minutes in the morning for myself—maybe for yoga, a walk, or even a peaceful cup of tea.",
     rating: 5,
     initials: "VR",
-    badge: "Verified Parent",
   },
   {
     name: "Kavita Krishnan",
     role: "Parent of 7yo",
     location: "Sushant Lok 1, Gurgaon",
     quote:
-      "Instant push notifications when she gets picked up and dropped inside the school gate mean I can focus at work in Cyber City without constantly worrying.",
-    tag: "Gate-to-Gate Alerts",
+      "Knowing my child is travelling safely would help me focus better when I'm at the office.",
     rating: 5,
     initials: "KK",
-    badge: "Verified Parent",
   },
   {
     name: "Sameer Joshi",
     role: "Tech Lead & Dad",
     location: "Golf Course Ext, Gurgaon",
     quote:
-      "The dedicated SOS button and strict speed governor tracking built directly into the parent app show how seriously Guardian Way takes security.",
-    tag: "Speed Control & SOS",
+      "Live journey updates would save us from constantly calling drivers to check where the vehicle is.",
     rating: 5,
     initials: "SJ",
-    badge: "Early Access Parent",
   },
   {
     name: "Meera Nambiar",
     role: "Parent of 2 kids",
     location: "Sector 48, Gurgaon",
     quote:
-      "Shared AC cabs with fixed route optimization reduced my kids' daily transit time to school from 60 minutes down to just 20 minutes each way!",
-    tag: "Express Route",
+      "“Safety is my biggest concern. I just want to know my child has reached safely.",
     rating: 5,
     initials: "MN",
-    badge: "Verified Parent",
-  },
-  {
-    name: "Rajesh Nair",
-    role: "Parent of 9yo",
-    location: "Sector 82, Gurgaon",
-    quote:
-      "Flexible leave pauses in the app mean we don't pay when we take family vacations. The transparent billing model is a breath of fresh air.",
-    tag: "Flexible Billing",
-    rating: 5,
-    initials: "RN",
-    badge: "Verified Parent",
-  },
-  {
-    name: "Sunita Menon",
-    role: "Mother of 6yo",
-    location: "DLF Phase 4, Gurgaon",
-    quote:
-      "The driver is polite, punctual to the exact minute, and the app lets me communicate with the ride manager seamlessly without sharing private numbers.",
-    tag: "Private Comm",
-    rating: 5,
-    initials: "SM",
-    badge: "Verified Parent",
-  },
-  {
-    name: "Aman Preet Singh",
-    role: "Parent of 11yo",
-    location: "Sector 50, Gurgaon",
-    quote:
-      "Knowing my son is buckled up with speed limits enforced and live CCTV streaming available makes Guardian Way worth every single rupee.",
-    tag: "Smart Safety Cabs",
-    rating: 5,
-    initials: "AS",
-    badge: "Verified Parent",
   },
 ];
 
@@ -205,12 +156,12 @@ export default function Testimonials() {
         {/* Header & Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <span className="text-[13px] font-bold uppercase tracking-[0.16em] text-navy-soft">
-              Early Voices
-            </span>
             <h2 className="mt-3 font-display text-[32px] font-extrabold tracking-tight text-navy-deep sm:text-[40px] max-w-2xl leading-tight">
-              What parents said when we shared the idea
+              What parents told us
             </h2>
+            <span className="text-[13px] font-bold uppercase tracking-[0.16em] text-navy-soft">
+              Thoughts shared by parents when we told the idea of guardian way
+            </span>
           </div>
 
           {/* Navigation Buttons */}
@@ -264,18 +215,13 @@ export default function Testimonials() {
                       />
                     ))}
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-mint bg-mint-soft/80 px-2.5 py-0.5 rounded-full">
-                    <Icon icon="ph:seal-check-fill" className="text-xs" />
-                    {q.badge}
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-mint bg-mint-soft/80 px-2.5 py-0.5 rounded-full border border-green-500">
+                    <Icon icon="ph:seal-check-fill" className="text-sm" />
                   </span>
                 </div>
 
                 {/* Quote Text */}
                 <div className="mt-5 relative">
-                  <Icon
-                    icon="ph:quotes-fill"
-                    className="text-3xl text-navy/10 absolute -top-2 -left-1 group-hover:text-yellow/30 transition-colors pointer-events-none"
-                  />
                   <p className="text-[14.5px] leading-relaxed font-medium text-navy-deep relative z-10 pl-2">
                     &ldquo;{q.quote}&rdquo;
                   </p>
@@ -297,10 +243,6 @@ export default function Testimonials() {
                     </div>
                   </div>
                 </div>
-
-                <span className="text-[10px] font-bold text-navy-soft bg-navy/[0.05] border border-navy/10 px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0 hidden sm:inline-block">
-                  {q.tag}
-                </span>
               </div>
             </div>
           ))}
