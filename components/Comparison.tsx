@@ -147,7 +147,8 @@ export const Comparison = () => {
               >
                 <Reveal delay={0.08 + i * 0.08} y={24} className="h-full">
                   <div
-                    className="group relative h-full flex flex-col justify-between overflow-hidden rounded-[28px] bg-white border border-[#E6EEF9] shadow-[0_8px_30px_rgba(21,62,117,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_54px_rgba(21,62,117,0.14)]"
+                    className="group relative h-full flex flex-col justify-between overflow-hidden rounded-[28px] bg-white border border-[#E6EEF9] border-l-4 shadow-[0_8px_30px_rgba(21,62,117,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_54px_rgba(21,62,117,0.14)]"
+                    style={{ borderLeftColor: opt.tone.accent }}
                     onMouseEnter={(e) => (e.currentTarget.style.borderColor = `${opt.tone.accent}55`)}
                     onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#E6EEF9")}
                   >
@@ -243,9 +244,9 @@ export const Comparison = () => {
               onClick={() => scroll("left")}
               disabled={!canScrollLeft}
               aria-label="Previous comparison card"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-[#E6EEF9] bg-white text-[#153E75] shadow-[0_4px_14px_rgba(21,62,117,0.08)] transition-opacity disabled:opacity-30"
+              className="flex h-15 w-15 items-center justify-center rounded-full border border-[#E6EEF9] bg-white text-[#153E75] shadow-[0_4px_14px_rgba(21,62,117,0.08)] transition-opacity disabled:opacity-30"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-11 w-11" />
             </button>
 
             <div className="flex items-center gap-2">
@@ -265,9 +266,9 @@ export const Comparison = () => {
               onClick={() => scroll("right")}
               disabled={!canScrollRight}
               aria-label="Next comparison card"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-[#E6EEF9] bg-white text-[#153E75] shadow-[0_4px_14px_rgba(21,62,117,0.08)] transition-opacity disabled:opacity-30"
+              className="flex h-15 w-15 items-center justify-center rounded-full border border-[#E6EEF9] bg-white text-[#153E75] shadow-[0_4px_14px_rgba(21,62,117,0.08)] transition-opacity disabled:opacity-30"
             >
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-11 w-11" />
             </button>
           </div>
         </div>
