@@ -495,15 +495,15 @@ const PillarScroll = () => {
 
   return (
     <div className="relative mt-8">
-      {/* Top Header Controls (Mobile & Desktop) */}
+      {/* Top Header Controls */}
       <div className="flex items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#153E75]">
           <span className="h-2 w-2 rounded-full bg-[#3CB995] animate-pulse" />
           <span>04 SAFETY PILLARS</span>
         </div>
 
-        {/* High-Contrast Navigation Buttons (Visible on Mobile & Desktop) */}
-        <div className="flex items-center gap-3">
+        {/* High-Contrast Navigation Buttons (Desktop only at top) */}
+        <div className="hidden md:flex items-center gap-3">
           <button
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
@@ -540,6 +540,26 @@ const PillarScroll = () => {
             <PillarCard {...p} />
           </Reveal>
         ))}
+      </div>
+
+      {/* Navigation Buttons (Mobile below cards) */}
+      <div className="flex md:hidden items-center justify-center gap-4 mt-6">
+        <button
+          onClick={() => scroll("left")}
+          disabled={!canScrollLeft}
+          aria-label="Scroll pillars left"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-md hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          onClick={() => scroll("right")}
+          disabled={!canScrollRight}
+          aria-label="Scroll pillars right"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-md hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
       </div>
     </div>
   );

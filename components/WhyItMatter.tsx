@@ -370,15 +370,16 @@ export default function WhyItMatter() {
           {/* Left: heading + copy */}
           <div>
             <Reveal delay={0.05}>
-              <h2 className="font-display text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-ink">
-                What if your child spent{" "}
-                <span className="block mt-2 text-4xl md:text-6xl text-navy">
-                  less time commuting?
+              <h2 className="font-display text-2xl md:text-5xl font-extrabold tracking-tight leading-tight text-ink">
+                <span className="block">What if your child spent</span>
+                <span className="block mt-2 text-3xl md:text-6xl text-navy">
+                  <span className="block">less time</span>
+                  <span className="block">commuting?</span>
                 </span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mt-6 max-w-lg text-base md:text-lg text-ink-soft leading-relaxed">
+              <p className="mt-6 max-w-lg text-xl md:text-lg text-ink-soft leading-relaxed">
                 Less time on the road. More time for learning, rest, and family.{" "}
                 <span className="font-bold text-navy">
                   That&apos;s the Guardian Way.
