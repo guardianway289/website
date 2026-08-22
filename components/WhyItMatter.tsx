@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import { Car, Bus, Clock, Sunrise, Palette, Bike, Heart } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -292,6 +292,57 @@ const BENEFITS = [
   { icon: Heart, label: "More Family Time" },
 ];
 
+function BenefitCardsSection() {
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardsRef,
+    offset: ["start 85%", "end 25%"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Sequential border color transforms directly bound to scroll progress
+  const c1Border = useTransform(smoothProgress, [0.0, 0.25, 0.45], ["#E6EEF9", "#FFC83D", "#E6EEF9"]);
+  const c2Border = useTransform(smoothProgress, [0.2, 0.45, 0.65], ["#E6EEF9", "#FFC83D", "#E6EEF9"]);
+  const c3Border = useTransform(smoothProgress, [0.4, 0.65, 0.85], ["#E6EEF9", "#FFC83D", "#E6EEF9"]);
+  const c4Border = useTransform(smoothProgress, [0.6, 0.85, 1.0], ["#E6EEF9", "#FFC83D", "#FFC83D"]);
+
+  const cardBorders = [c1Border, c2Border, c3Border, c4Border];
+
+  return (
+    <div ref={cardsRef} className="order-1 md:order-2 md:col-span-7 grid grid-cols-2 gap-3 sm:gap-4">
+      {BENEFITS.map((b, i) => (
+        <motion.div
+          key={b.label}
+          style={{
+            borderColor: cardBorders[i],
+          }}
+          whileHover={{
+            scale: 1.02,
+            borderColor: "#FFC83D",
+          }}
+          className="group relative h-full overflow-hidden rounded-2xl border-2 bg-white p-4 sm:p-6 transition-transform duration-200"
+        >
+          <span
+            className="inline-flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-[#FFC83D]/25 text-navy transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-[#FFC83D]"
+            style={{ animation: `iconFloat 3s ease-in-out ${i * 0.4}s infinite` }}
+          >
+            <b.icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#153E75]" strokeWidth={2} />
+          </span>
+          <p className="mt-2.5 sm:mt-4 text-xs sm:text-base font-bold leading-snug text-[#111827] transition-colors duration-300 group-hover:text-[#153E75]">
+            {b.label}
+          </p>
+          <span className="mt-1.5 sm:mt-2 block h-0.5 w-0 bg-[#FFC83D] transition-all duration-300 ease-out group-hover:w-10" />
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
 /* ─── Main Section Export ────────────────────────────────────────────── */
 export default function WhyItMatter() {
   return (
@@ -333,34 +384,18 @@ export default function WhyItMatter() {
           </Reveal>
         </div>
 
-        {/* Bottom: benefit cards + carousel */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-          {/* Image carousel — 5 cols */}
-          <Reveal className="md:col-span-5" y={24}>
+        {/* Bottom: benefit cards + route concept graph */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+          {/* Benefit cards (Order 1 on mobile, Order 2 on desktop) */}
+          <BenefitCardsSection />
+
+          {/* Route Concept graph (Order 2 on mobile, Order 1 on desktop) */}
+          <Reveal className="order-2 md:order-1 md:col-span-5" y={24}>
             <RouteConcept />
           </Reveal>
-
-          {/* Benefit cards — 7 cols, 2×2 */}
-          <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {BENEFITS.map((b, i) => (
-              <Reveal key={b.label} delay={i * 0.07} y={24}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-line bg-white p-6 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-navy hover:shadow-[0_16px_32px_rgba(21,62,117,0.15)]">
-                  <span
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-yellow/20 text-navy transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-yellow group-hover:shadow-[0_6px_16px_rgba(250,204,21,0.4)]"
-                    style={{ animation: `iconFloat 3s ease-in-out ${i * 0.4}s infinite` }}
-                  >
-                    <b.icon className="h-5 w-5" strokeWidth={1.75} />
-                  </span>
-                  <p className="mt-4 font-semibold text-ink transition-colors duration-300 group-hover:text-navy">
-                    {b.label}
-                  </p>
-                  <span className="mt-2 block h-0.5 w-0 bg-yellow transition-all duration-300 ease-out group-hover:w-10" />
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </div>
     </section>
   );
 }
+
