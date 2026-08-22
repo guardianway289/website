@@ -10,9 +10,9 @@ const OPTIONS = [
     icon: "ion:car-outline",
     code: "ROUTE_A",
     title: "Private Van",
-    status: "Unverified",
-    subtitle: "Often chosen because it's convenient.",
-    concern: "lack of safety transparency",
+    status: "Safety & accountability gap",
+    subtitle: "Convenient, but often lacking oversight.",
+    concern: "SAFETY • VISIBILITY • ACCOUNTABILITY",
     impact: 4,
     tone: {
       accent: "#EF4444",
@@ -23,18 +23,19 @@ const OPTIONS = [
       glow: "rgba(239,68,68,0.16)",
     },
     points: [
-      "Usually unregulated & unverified",
-      "Little or no live safety monitoring",
-      "Driver verification isn't transparent",
+      "Unclear registration & authorization",
+      "Overcrowding & unsafe vehicles",
+      "No monitoring of speeding or traffic violations",
+      "Driver verification & background checks can be unclear",
     ],
   },
   {
     icon: "ion:bus-outline",
     code: "ROUTE_B",
     title: "Traditional School Bus",
-    status: "Fixed schedule",
-    subtitle: "Reliable for many schools — but not every family.",
-    concern: "wasted travel and wait time",
+    status: "Time & route constraints",
+    subtitle: "Reliable, but often time-consuming.",
+    concern: "MORE TRAVEL • MORE WAITING • LESS FLEXIBILITY",
     impact: 3,
     tone: {
       accent: "#F59E0B",
@@ -45,19 +46,19 @@ const OPTIONS = [
       glow: "rgba(245,158,11,0.16)",
     },
     points: [
-      "Long winding routes with multiple stops",
-      "Large number of students per ride",
-      "Extra 45–90 minutes lost travel time",
-      "Stressful waiting at bus stops",
+      "Long routes & multiple stops",
+      "Fixed routes & schedules for everyone",
+      "Parents must use designated bus stops",
+      "Extra waiting time before & after school",
     ],
   },
   {
     icon: "ion:person-outline",
     code: "ROUTE_C",
     title: "Parent Drop-off",
-    status: "Manual only",
+    status: "Daily time burden",
     subtitle: "The safest option — but not always practical.",
-    concern: "daily disruption and stress",
+    concern: "PARENT TIME • TRAFFIC • DAILY STRESS",
     impact: 2,
     tone: {
       accent: "#8B5CF6",
@@ -70,7 +71,8 @@ const OPTIONS = [
     points: [
       "Takes parents' time twice every day",
       "Difficult for working or busy families",
-      "Traffic jams & school gate parking stress",
+      "Traffic jams & school-gate parking stress",
+      "No easy backup when parents are unavailable",
     ],
   },
 ];
@@ -225,7 +227,6 @@ export const Comparison = () => {
 
                       <div className="mt-6 pt-4 border-t border-[#F3F4F6]">
                         <div className="flex items-center gap-2">
-                          <AlertTriangle className="h-3.5 w-3.5 shrink-0" style={{ color: opt.tone.accent }} />
                           <code className="font-mono text-[11.5px] font-semibold truncate" style={{ color: opt.tone.accent }}>
                             {opt.concern}
                           </code>
