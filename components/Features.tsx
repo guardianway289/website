@@ -642,31 +642,46 @@ const PillarCard = ({
       </div>
 
       {/* Body content */}
-      <div className="relative p-7 md:p-8 flex flex-col justify-between flex-1">
+      <div className="relative p-4 sm:p-7 md:p-8 flex flex-col justify-between flex-1">
         <div>
-          <h3 className="flex items-center gap-3.5 font-heading text-xl md:text-xl font-extrabold text-[#111827]">
+          <h3 className="flex items-center gap-3.5 font-heading text-lg sm:text-xl font-extrabold text-[#111827]">
             <span
-              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${t.chip} ${t.text} shadow-xs transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}
+              className={`flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl ${t.chip} ${t.text} shadow-xs transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}
             >
               <Icon className="h-5 w-5" strokeWidth={2} />
             </span>
             {title}
           </h3>
-          <p className="mt-3 text-[14.5px] text-[#4B5563] leading-relaxed">
+          <p className="mt-3 text-[13.5px] sm:text-[14.5px] text-[#4B5563] leading-relaxed">
             {body}
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 pt-4 border-t border-[#F3F4F6]">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-extrabold ${t.chip} ${t.text}`}
-            >
-              <Sparkles className="h-3 w-3 shrink-0" />
-              {tag}
-            </span>
-          ))}
+        <div className="pt-4 border-t border-[#F3F4F6] flex flex-col gap-1.5">
+          {/* Row 1: Tag 1 & Tag 2 */}
+          <div className="flex flex-row items-center gap-1.5 sm:gap-2">
+            {tags.slice(0, 2).map((tag) => (
+              <span
+                key={tag}
+                className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2 sm:px-2.5 py-1 text-[10px] sm:text-xs font-extrabold whitespace-nowrap ${t.chip} ${t.text}`}
+              >
+                <Sparkles className="h-2.5 w-2.5 sm:h-3 sm:w-3 shrink-0" />
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Row 2: Tag 3 */}
+          {tags[2] && (
+            <div className="flex flex-row items-center">
+              <span
+                className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2 sm:px-2.5 py-1 text-[10px] sm:text-xs font-extrabold whitespace-nowrap ${t.chip} ${t.text}`}
+              >
+                <Sparkles className="h-2.5 w-2.5 sm:h-3 sm:w-3 shrink-0" />
+                {tags[2]}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
