@@ -43,6 +43,60 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const LINES = ["Student", "Transportation,", "Reimagined."];
 
 export default function Hero() {
+  const heroImage = (
+    <div className="relative mx-auto w-full max-w-150 lg:max-w-none">
+      {/* Ambient colorful glow behind the image */}
+      <div className="absolute -inset-4 bg-gradient-to-tr from-[#3cb995]/15 via-[#153e75]/10 to-[#ffc83d]/20 rounded-[40px] blur-3xl opacity-75 -z-10" />
+
+      {/* Main Image Container */}
+      <div className="relative rounded-[32px] overflow-hidden shadow-[0_30px_70px_rgba(15,27,45,0.12)]">
+        <img
+          src="https://images.pexels.com/photos/4473498/pexels-photo-4473498.jpeg?auto=compress&cs=tinysrgb&w=1400"
+          alt="Happy kids sitting safely buckled inside a car"
+          className="w-full lg:aspect-[1.12] object-cover rounded-[32px]"
+        />
+      </div>
+
+      {/* Badge 1: Verified & Safe (Top Left) */}
+      <motion.div
+        variants={floatUp}
+        animate="animate"
+        className="hidden sm:flex absolute left-2 top-[15%] items-center gap-3 rounded-2xl border border-line/40 bg-white/95 p-3.5 shadow-[0_20px_40px_rgba(15,27,45,0.1)] backdrop-blur-sm sm:-left-10"
+      >
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mint/10 text-mint">
+          <Icon icon="ph:shield-check-fill" className="text-[22px]" />
+        </div>
+        <div>
+          <div className="text-[13.5px] font-bold text-navy-deep leading-tight">
+            Verified & Safe
+          </div>
+          <div className="text-[11px] font-medium text-ink-soft mt-0.5 leading-tight font-body">
+            Buckled up, every ride
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Badge 2: Up to 50% less (Bottom Right) */}
+      <motion.div
+        variants={floatDown}
+        animate="animate"
+        className="hidden sm:flex absolute right-2 bottom-[12%] items-center gap-3 rounded-2xl border border-line/40 bg-white/95 p-3.5 shadow-[0_20px_40px_rgba(15,27,45,0.1)] backdrop-blur-sm sm:-right-8"
+      >
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-yellow/15 text-yellow-deep">
+          <Icon icon="ph:clock-fill" className="text-[22px]" />
+        </div>
+        <div>
+          <div className="text-[13.5px] font-bold text-navy-deep leading-tight font-display">
+            Up to 50% less
+          </div>
+          <div className="text-[11px] font-medium text-ink-soft mt-0.5 leading-tight font-body">
+            travel time
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+
   return (
     <section
       id="top"
@@ -58,25 +112,25 @@ export default function Hero() {
         {/* Left: copy */}
         <div className="flex flex-col justify-center">
           <h1 className="font-heading font-extrabold tracking-tight leading-[1.12] text-4xl sm:text-5xl md:text-6xl lg:text-[4.4rem] text-[#111827]">
-              {LINES.map((line, i) => (
-                <span key={i} className="block overflow-hidden pb-[0.12em]">
-                  <motion.span
-                    className="block"
-                    initial={{ y: "110%" }}
-                    animate={{ y: "0%" }}
-                    transition={{ duration: 0.85, ease: EASE, delay: 0.1 + i * 0.12 }}
-                  >
-                    {i === 2 ? (
-                      <span className="bg-gradient-to-r from-[#153E75] via-[#1D5FA8] to-[#E9A81B] bg-clip-text text-transparent">
-                        Reimagined.
-                      </span>
-                    ) : (
-                      line
-                    )}
-                  </motion.span>
-                </span>
-              ))}
-            </h1>
+            {LINES.map((line, i) => (
+              <span key={i} className="block overflow-hidden pb-[0.12em]">
+                <motion.span
+                  className="block"
+                  initial={{ y: "110%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 0.85, ease: EASE, delay: 0.1 + i * 0.12 }}
+                >
+                  {i === 2 ? (
+                    <span className="bg-gradient-to-r from-[#153E75] via-[#1D5FA8] to-[#E9A81B] bg-clip-text text-transparent">
+                      Reimagined.
+                    </span>
+                  ) : (
+                    line
+                  )}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
 
           <motion.div
             variants={fadeUp}
@@ -107,29 +161,34 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             custom={3}
-            className="mt-9 flex flex-wrap items-center gap-4"
+            className="mt-9 flex flex-row flex-wrap items-center gap-3 sm:gap-4"
           >
             <a
               href="#contact"
-              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-[15px] font-bold text-white shadow-[0_12px_30px_-8px_rgba(21,62,117,0.4)] transition-all hover:bg-navy-deep hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-navy px-5 sm:px-7 py-3.5 text-[14px] sm:text-[15px] font-bold text-white shadow-[0_12px_30px_-8px_rgba(21,62,117,0.4)] transition-all hover:bg-navy-deep hover:-translate-y-0.5 whitespace-nowrap"
             >
               Book Now
               <Icon icon="ph:arrow-right-bold" />
             </a>
             <a
               href="#why-it-matters"
-              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full border border-line bg-white px-7 py-3.5 text-[15px] font-bold text-navy shadow-sm transition-all hover:bg-bg/50 hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white px-5 sm:px-7 py-3.5 text-[14px] sm:text-[15px] font-bold text-navy shadow-sm transition-all hover:bg-bg/50 hover:-translate-y-0.5 whitespace-nowrap"
             >
               See how it works
             </a>
           </motion.div>
+
+          {/* Mobile Image Placement (directly after buttons) */}
+          <div className="block lg:hidden mt-9 mb-4">
+            {heroImage}
+          </div>
 
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="show"
             custom={4}
-            className="mt-12 flex flex-wrap items-center gap-x-12 gap-y-4"
+            className="mt-10 lg:mt-12 flex flex-wrap items-center gap-x-12 gap-y-4"
           >
             {[
               { n: "Max 7", l: "students per XL Cab" },
@@ -149,57 +208,9 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: kids image and floating badges */}
-        <div className="relative mx-auto w-full max-w-150 lg:max-w-none pt-8 lg:pt-0">
-          {/* Ambient colorful glow behind the image */}
-          <div className="absolute -inset-4 bg-gradient-to-tr from-[#3cb995]/15 via-[#153e75]/10 to-[#ffc83d]/20 rounded-[40px] blur-3xl opacity-75 -z-10" />
-
-          {/* Main Image Container */}
-          <div className="relative rounded-[32px] overflow-hidden shadow-[0_30px_70px_rgba(15,27,45,0.12)]">
-            <img
-              src="https://images.pexels.com/photos/4473498/pexels-photo-4473498.jpeg?auto=compress&cs=tinysrgb&w=1400"
-              alt="Happy kids sitting safely buckled inside a car"
-              className="w-full lg:aspect-[1.12] object-cover rounded-[32px]"
-            />
-          </div>
-
-          {/* Badge 1: Verified & Safe (Top Left) */}
-          <motion.div
-            variants={floatUp}
-            animate="animate"
-            className="hidden sm:flex absolute left-2 top-[15%] items-center gap-3 rounded-2xl border border-line/40 bg-white/95 p-3.5 shadow-[0_20px_40px_rgba(15,27,45,0.1)] backdrop-blur-sm sm:-left-10"
-          >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mint/10 text-mint">
-              <Icon icon="ph:shield-check-fill" className="text-[22px]" />
-            </div>
-            <div>
-              <div className="text-[13.5px] font-bold text-navy-deep leading-tight">
-                Verified & Safe
-              </div>
-              <div className="text-[11px] font-medium text-ink-soft mt-0.5 leading-tight font-body">
-                Buckled up, every ride
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Badge 2: Up to 50% less (Bottom Right) */}
-          <motion.div
-            variants={floatDown}
-            animate="animate"
-            className="hidden sm:flex absolute right-2 bottom-[12%] items-center gap-3 rounded-2xl border border-line/40 bg-white/95 p-3.5 shadow-[0_20px_40px_rgba(15,27,45,0.1)] backdrop-blur-sm sm:-right-8"
-          >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-yellow/15 text-yellow-deep">
-              <Icon icon="ph:clock-fill" className="text-[22px]" />
-            </div>
-            <div>
-              <div className="text-[13.5px] font-bold text-navy-deep leading-tight font-display">
-                Up to 50% less
-              </div>
-              <div className="text-[11px] font-medium text-ink-soft mt-0.5 leading-tight font-body">
-                travel time
-              </div>
-            </div>
-          </motion.div>
+        {/* Right: kids image for desktop */}
+        <div className="hidden lg:block pt-8 lg:pt-0">
+          {heroImage}
         </div>
       </div>
     </section>
