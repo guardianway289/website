@@ -705,12 +705,6 @@ function TechCardsGrid() {
           ["#E6EEF9", "#FFC83D"]
         );
 
-        const ambientOpacity = useTransform(
-          smoothProgress,
-          [start, end],
-          [0, 1]
-        );
-
         return (
           <motion.div
             key={t.title}
@@ -720,11 +714,6 @@ function TechCardsGrid() {
             whileHover={{ scale: 1.02 }}
             className="group relative h-28 sm:h-32 rounded-2xl bg-white border-2 p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden transition-transform duration-200"
           >
-            <motion.div
-              style={{ opacity: ambientOpacity }}
-              className="pointer-events-none absolute -inset-2 bg-gradient-to-tr from-[#FFC83D]/25 via-[#FFC83D]/10 to-transparent rounded-2xl blur-lg"
-            />
-
             <div className="relative z-10 flex flex-col justify-between h-full">
               <t.icon
                 className="h-5 w-5 sm:h-6 sm:w-6 text-[#153E75] group-hover:scale-110 transition-transform"
