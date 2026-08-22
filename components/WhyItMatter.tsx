@@ -305,38 +305,47 @@ function BenefitCardsSection() {
     restDelta: 0.001,
   });
 
-  // Sequential border color transforms directly bound to scroll progress
-  const c1Border = useTransform(smoothProgress, [0.0, 0.25, 0.45], ["#E6EEF9", "#FFC83D", "#E6EEF9"]);
-  const c2Border = useTransform(smoothProgress, [0.2, 0.45, 0.65], ["#E6EEF9", "#FFC83D", "#E6EEF9"]);
-  const c3Border = useTransform(smoothProgress, [0.4, 0.65, 0.85], ["#E6EEF9", "#FFC83D", "#E6EEF9"]);
-  const c4Border = useTransform(smoothProgress, [0.6, 0.85, 1.0], ["#E6EEF9", "#FFC83D", "#FFC83D"]);
+  // Sequential golden ambient light opacity transforms directly bound to scroll progress (remains lit)
+  const c1Ambient = useTransform(smoothProgress, [0.0, 0.25], [0, 1]);
+  const c2Ambient = useTransform(smoothProgress, [0.2, 0.45], [0, 1]);
+  const c3Ambient = useTransform(smoothProgress, [0.4, 0.65], [0, 1]);
+  const c4Ambient = useTransform(smoothProgress, [0.6, 0.85], [0, 1]);
 
-  const cardBorders = [c1Border, c2Border, c3Border, c4Border];
+  const ambientGlows = [c1Ambient, c2Ambient, c3Ambient, c4Ambient];
 
   return (
     <div ref={cardsRef} className="order-1 md:order-2 md:col-span-7 grid grid-cols-2 gap-3 sm:gap-4">
       {BENEFITS.map((b, i) => (
         <motion.div
           key={b.label}
-          style={{
-            borderColor: cardBorders[i],
-          }}
-          whileHover={{
-            scale: 1.02,
-            borderColor: "#FFC83D",
-          }}
-          className="group relative h-full overflow-hidden rounded-2xl border-2 bg-white p-4 sm:p-6 transition-transform duration-200"
+          whileHover={{ scale: 1.02 }}
+          className="group relative h-full overflow-hidden rounded-2xl border border-[#E6EEF9] bg-white p-4 sm:p-6 transition-transform duration-200"
         >
-          <span
-            className="inline-flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-[#FFC83D]/25 text-navy transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-[#FFC83D]"
-            style={{ animation: `iconFloat 3s ease-in-out ${i * 0.4}s infinite` }}
-          >
-            <b.icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#153E75]" strokeWidth={2} />
-          </span>
-          <p className="mt-2.5 sm:mt-4 text-xs sm:text-base font-bold leading-snug text-[#111827] transition-colors duration-300 group-hover:text-[#153E75]">
-            {b.label}
-          </p>
-          <span className="mt-1.5 sm:mt-2 block h-0.5 w-0 bg-[#FFC83D] transition-all duration-300 ease-out group-hover:w-10" />
+          {/* Golden Ambient Light backdrop (controlled by scroll progress) */}
+          <motion.div
+            style={{ opacity: ambientGlows[i] }}
+            className="pointer-events-none absolute -inset-4 bg-gradient-to-tr from-[#FFC83D]/30 via-[#FFC83D]/15 to-transparent rounded-2xl blur-xl"
+          />
+
+          {/* Golden Corner Ambient Orb */}
+          <motion.div
+            style={{ opacity: ambientGlows[i] }}
+            className="pointer-events-none absolute -top-12 -right-12 h-36 w-36 rounded-full bg-[#FFC83D]/40 blur-2xl"
+          />
+
+          {/* Card Content */}
+          <div className="relative z-10">
+            <span
+              className="inline-flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-[#FFC83D]/25 text-navy transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-[#FFC83D]"
+              style={{ animation: `iconFloat 3s ease-in-out ${i * 0.4}s infinite` }}
+            >
+              <b.icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#153E75]" strokeWidth={2} />
+            </span>
+            <p className="mt-2.5 sm:mt-4 text-xs sm:text-base font-bold leading-snug text-[#111827] transition-colors duration-300 group-hover:text-[#153E75]">
+              {b.label}
+            </p>
+            <span className="mt-1.5 sm:mt-2 block h-0.5 w-0 bg-[#FFC83D] transition-all duration-300 ease-out group-hover:w-10" />
+          </div>
         </motion.div>
       ))}
     </div>
