@@ -10,11 +10,15 @@ import {
 import { toast } from "sonner";
 import { ArrowRight, Check, Loader2, ShieldCheck } from "lucide-react";
 import { Reveal, Chapter } from "./Reveal";
+import { validateContactForm } from "@/app/lib/validations/form";
 
 const field =
   "w-full rounded-xl bg-[#FAFBFD] border border-[#E6EEF9] px-4 py-3 text-[#111827] placeholder:text-[#94A3B8] outline-none focus:border-[#153E75] focus:ring-2 focus:ring-[#153E75]/15 transition-colors";
+const fieldErr =
+  "w-full rounded-xl bg-[#FAFBFD] border border-red-500 px-4 py-3 text-[#111827] placeholder:text-[#94A3B8] outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-colors";
 const labelC = "text-sm font-medium text-[#4B5563] mb-1.5 block";
 const selectC = `${field} appearance-none`;
+const selectCErr = `${fieldErr} appearance-none`;
 
 type Role = "parent" | "institute";
 
@@ -80,17 +84,24 @@ const institutionSteps = [
   "Explore Partnership",
 ];
 
+const FieldError = ({ error }: { error?: string }) => {
+  if (!error) return null;
+  return <p className="mt-1.5 text-xs font-semibold text-red-600">{error}</p>;
+};
+
 const SelectField = ({
   label,
   value,
   onChange,
   required = false,
+  error,
   children,
 }: {
   label: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   required?: boolean;
+  error?: string;
   children: ReactNode;
 }) => (
   <div>
@@ -99,13 +110,13 @@ const SelectField = ({
       {required ? " *" : ""}
     </label>
     <select
-      className={selectC}
+      className={error ? selectCErr : selectC}
       value={value}
       onChange={onChange}
-      required={required}
     >
       {children}
     </select>
+    <FieldError error={error} />
   </div>
 );
 
@@ -113,13 +124,23 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
   const [role, setRole] = useState<Role>("parent");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [form, setForm] = useState<ContactFormState>(EMPTY_FORM);
+
   const set =
     (key: keyof ContactFormState) =>
     (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const value = event.target.value;
       setForm((current) => ({ ...current, [key]: value }));
+      if (errors[key]) {
+        setErrors((prev) => {
+          const next = { ...prev };
+          delete next[key];
+          return next;
+        });
+      }
     };
+
   const toggleMatter = (matter: string) => {
     setForm((current) => ({
       ...current,
@@ -128,36 +149,61 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
         : [...current.matters, matter],
     }));
   };
+
   const changeRole = (nextRole: Role) => {
     setRole(nextRole);
     setForm(EMPTY_FORM);
+    setErrors({});
     setSubmitted(false);
   };
+
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Validate and sanitize data with Zod schema client-side
+    const validation = validateContactForm({ role, ...form });
+    if (!validation.success) {
+      setErrors(validation.errors);
+      toast.error("Please fix the highlighted errors in the form.");
+      return;
+    }
+
+    setErrors({});
     setLoading(true);
+
     try {
       const response = await fetch("/api/form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role, ...form }),
+        body: JSON.stringify(validation.data),
       });
 
       if (!response.ok) {
-        const result = (await response.json().catch(() => null)) as { error?: string } | null;
+        const result = (await response.json().catch(() => null)) as {
+          error?: string;
+          details?: Record<string, string>;
+        } | null;
+
+        if (result?.details) {
+          setErrors(result.details);
+        }
         throw new Error(result?.error || "Unable to submit your enquiry.");
       }
 
       setForm(EMPTY_FORM);
       setSubmitted(true);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
+
   const isParent = role === "parent";
   const steps = isParent ? parentSteps : institutionSteps;
+
   return (
     <section
       ref={ref}
@@ -248,7 +294,7 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={submit} data-testid="contact-form">
+                  <form noValidate onSubmit={submit} data-testid="contact-form">
                     <div className="mb-7 flex flex-wrap gap-x-4 gap-y-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[#94A3B8]">
                       {steps.map((step, index) => (
                         <span
@@ -269,41 +315,43 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                           {isParent ? "Your name" : "Contact person"} *
                         </label>
                         <input
-                          required
                           data-testid="input-name"
-                          className={field}
+                          className={errors.name ? fieldErr : field}
                           value={form.name}
                           onChange={set("name")}
                           placeholder="Full name"
                         />
+                        <FieldError error={errors.name} />
                       </div>
+
                       <div>
                         <label className={labelC}>Phone / WhatsApp *</label>
                         <input
-                          required
                           data-testid="input-phone"
-                          className={field}
+                          className={errors.phone ? fieldErr : field}
                           value={form.phone}
                           onChange={set("phone")}
                           placeholder="+91 XXXXX XXXXX"
                         />
+                        <FieldError error={errors.phone} />
                       </div>
+
                       <div className="sm:col-span-2">
                         <label className={labelC}>
                           {isParent ? "Email (Optional)" : "Work email"}
                           {isParent ? "" : " *"}
                         </label>
                         <input
-                          required={!isParent}
                           data-testid="input-email"
                           type="email"
-                          className={field}
+                          className={errors.email ? fieldErr : field}
                           value={form.email}
                           onChange={set("email")}
                           placeholder={
                             isParent ? "you@example.com" : "name@school.com"
                           }
                         />
+                        <FieldError error={errors.email} />
                       </div>
 
                       {isParent ? (
@@ -311,53 +359,57 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                           <div>
                             <label className={labelC}>School *</label>
                             <input
-                              required
                               data-testid="input-school"
-                              className={field}
+                              className={errors.school ? fieldErr : field}
                               value={form.school}
                               onChange={set("school")}
                               placeholder="Search or enter school name"
                             />
+                            <FieldError error={errors.school} />
                           </div>
+
                           <div>
                             <label className={labelC}>
                               Your home locality / area *
                             </label>
                             <input
-                              required
-                              className={field}
+                              className={errors.locality ? fieldErr : field}
                               value={form.locality}
                               onChange={set("locality")}
                               placeholder="e.g. Sector 57, Gurugram"
                             />
+                            <FieldError error={errors.locality} />
                           </div>
+
                           <div>
                             <label className={labelC}>
                               Approx. home-to-school distance *
                             </label>
                             <div className="flex items-center gap-2">
                               <input
-                                required
                                 type="number"
                                 min="0"
                                 step="0.1"
-                                className={field}
+                                className={errors.distance ? fieldErr : field}
                                 value={form.distance}
                                 onChange={set("distance")}
                                 placeholder="___"
                               />
                               <span className="text-sm text-[#6B7280]">km</span>
                             </div>
+                            <FieldError error={errors.distance} />
                             <p className="mt-1.5 text-xs text-[#94A3B8]">
                               Check Google Maps for the approximate one-way
                               driving distance.
                             </p>
                           </div>
+
                           <SelectField
                             label="Current transport"
                             value={form.transport}
                             onChange={set("transport")}
                             required
+                            error={errors.transport}
                           >
                             <option value="">Select current transport</option>
                             <option>School bus</option>
@@ -365,16 +417,18 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                             <option>Parent drop-off</option>
                             <option>Other</option>
                           </SelectField>
+
                           <div>
                             <label className={labelC}>
                               Current one-way travel time *
                             </label>
                             <div className="flex items-center gap-2">
                               <input
-                                required
                                 type="number"
                                 min="0"
-                                className={field}
+                                className={
+                                  errors.travelHours ? fieldErr : field
+                                }
                                 value={form.travelHours}
                                 onChange={set("travelHours")}
                                 placeholder="___"
@@ -384,11 +438,12 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                 hrs
                               </span>
                               <input
-                                required
                                 type="number"
                                 min="0"
                                 max="59"
-                                className={field}
+                                className={
+                                  errors.travelMinutes ? fieldErr : field
+                                }
                                 value={form.travelMinutes}
                                 onChange={set("travelMinutes")}
                                 placeholder="___"
@@ -398,32 +453,40 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                 min
                               </span>
                             </div>
+                            <FieldError
+                              error={errors.travelHours || errors.travelMinutes}
+                            />
                             <p className="mt-1.5 text-xs text-[#94A3B8]">
                               Approximate time your child currently takes to
                               reach school. Example: 1 hr 25 min
                             </p>
                           </div>
+
                           <div>
                             <label className={labelC}>
                               Current monthly transportation cost *
                             </label>
                             <input
-                              required
                               type="number"
                               min="0"
-                              className={field}
+                              className={
+                                errors.monthlyCost ? fieldErr : field
+                              }
                               value={form.monthlyCost}
                               onChange={set("monthlyCost")}
                               placeholder="Enter amount"
                             />
+                            <FieldError error={errors.monthlyCost} />
                             <p className="mt-1.5 text-xs text-[#94A3B8]">
                               Approximate amount you currently pay per month.
                             </p>
                           </div>
+
                           <SelectField
                             label="Child's class / grade"
                             value={form.childGrade}
                             onChange={set("childGrade")}
+                            error={errors.childGrade}
                           >
                             <option value="">Select class / grade</option>
                             {[
@@ -431,12 +494,13 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                               "KG",
                               ...Array.from(
                                 { length: 12 },
-                                (_, index) => `Class ${index + 1}`,
+                                (_, index) => `Class ${index + 1}`
                               ),
                             ].map((grade) => (
                               <option key={grade}>{grade}</option>
                             ))}
                           </SelectField>
+
                           <fieldset className="sm:col-span-2">
                             <legend className={labelC}>
                               What matters most to you?
@@ -463,11 +527,13 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                               ))}
                             </div>
                           </fieldset>
+
                           <SelectField
                             label="When do you need the service?"
                             value={form.timeline}
                             onChange={set("timeline")}
                             required
+                            error={errors.timeline}
                           >
                             <option value="">
                               When do you need the service?
@@ -477,11 +543,13 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                             <option>Within 3 months</option>
                             <option>Just exploring</option>
                           </SelectField>
+
                           <SelectField
                             label="Best time to call"
                             value={form.callTime}
                             onChange={set("callTime")}
                             required
+                            error={errors.callTime}
                           >
                             <option value="">Select preferred call time</option>
                             <option>Morning — 9 AM–12 PM</option>
@@ -495,18 +563,20 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                           <div>
                             <label className={labelC}>Institution name *</label>
                             <input
-                              required
-                              className={field}
+                              className={errors.organization ? fieldErr : field}
                               value={form.organization}
                               onChange={set("organization")}
                               placeholder="School / Institute name"
                             />
+                            <FieldError error={errors.organization} />
                           </div>
+
                           <SelectField
                             label="Your designation"
                             value={form.designation}
                             onChange={set("designation")}
                             required
+                            error={errors.designation}
                           >
                             <option value="">Select designation</option>
                             <option>Principal / Director</option>
@@ -516,23 +586,26 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                             <option>Management</option>
                             <option>Other</option>
                           </SelectField>
+
                           <div>
                             <label className={labelC}>
                               Institution location *
                             </label>
                             <input
-                              required
-                              className={field}
+                              className={errors.location ? fieldErr : field}
                               value={form.location}
                               onChange={set("location")}
                               placeholder="Area / Sector / City"
                             />
+                            <FieldError error={errors.location} />
                           </div>
+
                           <SelectField
                             label="Approx. number of students"
                             value={form.studentCount}
                             onChange={set("studentCount")}
                             required
+                            error={errors.studentCount}
                           >
                             <option value="">Select student strength</option>
                             <option>Under 250</option>
@@ -541,11 +614,13 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                             <option>1,000–2,000</option>
                             <option>2,000+</option>
                           </SelectField>
+
                           <SelectField
                             label="Current student transportation"
                             value={form.setup}
                             onChange={set("setup")}
                             required
+                            error={errors.setup}
                           >
                             <option value="">Select current setup</option>
                             <option>School-managed buses</option>
@@ -554,11 +629,13 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                             <option>Combination of the above</option>
                             <option>No organized transport</option>
                           </SelectField>
+
                           <SelectField
                             label="When are you looking to explore this?"
                             value={form.timeline}
                             onChange={set("timeline")}
                             required
+                            error={errors.timeline}
                           >
                             <option value="">Select timeline</option>
                             <option>Immediately</option>
@@ -566,11 +643,13 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                             <option>This academic year</option>
                             <option>Just exploring</option>
                           </SelectField>
+
                           <SelectField
                             label="Best time to call"
                             value={form.callTime}
                             onChange={set("callTime")}
                             required
+                            error={errors.callTime}
                           >
                             <option value="">Select preferred call time</option>
                             <option>Morning — 9 AM–12 PM</option>
@@ -592,9 +671,7 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                         <Loader2 className="h-4 w-4 animate-spin" />
                       ) : (
                         <>
-                          {isParent
-                            ? "Submit"  
-                            : "Explore Partnership"}{" "}
+                          {isParent ? "Submit" : "Explore Partnership"}{" "}
                           <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </>
                       )}
@@ -611,3 +688,4 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
 });
 
 ContactForm.displayName = "ContactForm";
+
