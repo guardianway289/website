@@ -137,12 +137,12 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             custom={1}
-            className="mt-6 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[15px] font-bold text-navy"
+            className="mt-6 flex flex-nowrap items-center gap-1.5 sm:gap-2.5 text-[14.5px] min-[390px]:text-[14px] sm:text-[15px] font-bold text-navy whitespace-nowrap"
           >
             <span>Safe Rides.</span>
-            <span className="text-yellow font-extrabold text-[18px]">•</span>
+            <span className="text-yellow font-extrabold text-[14px] sm:text-[18px]">•</span>
             <span>Happy Kids.</span>
-            <span className="text-yellow font-extrabold text-[18px]">•</span>
+            <span className="text-yellow font-extrabold text-[14px] sm:text-[18px]">•</span>
             <span>Peace of Mind.</span>
           </motion.div>
 

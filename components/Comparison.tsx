@@ -285,7 +285,7 @@ export const Comparison = () => {
 
           <motion.h3
             style={{ scale, opacity }}
-            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-center text-[#111827] leading-[1.12] py-2"
+            className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-center text-[#111827] leading-[1.12] py-2"
           >
             <span className="block whitespace-nowrap">There should be a</span>
             <span className="text-[#153E75] block whitespace-nowrap">fourth choice.</span>
