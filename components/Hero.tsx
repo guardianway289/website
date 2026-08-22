@@ -188,19 +188,19 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             custom={4}
-            className="mt-10 lg:mt-12 flex flex-wrap items-center gap-x-12 gap-y-4"
+            className="mt-8 lg:mt-12 flex flex-row flex-nowrap items-start justify-between sm:justify-start gap-2.5 min-[380px]:gap-4 sm:gap-8 md:gap-12 w-full"
           >
             {[
               { n: "Max 7", l: "students per XL Cab" },
               { n: "30&ndash;50%", l: "less travel time" },
               { n: "100%", l: "safety & verified drivers" },
             ].map((s) => (
-              <div key={s.l}>
+              <div key={s.l} className="shrink-0 text-center sm:text-left">
                 <div
-                  className="font-display text-[26px] font-extrabold text-navy-deep leading-tight"
+                  className="font-display text-[18px] min-[380px]:text-[22px] sm:text-[26px] font-extrabold text-navy-deep leading-tight whitespace-nowrap"
                   dangerouslySetInnerHTML={{ __html: s.n }}
                 />
-                <div className="text-[13px] font-medium text-ink-soft mt-0.5">
+                <div className="text-[10.5px] min-[380px]:text-[12px] sm:text-[13px] font-medium text-ink-soft mt-0.5 whitespace-nowrap">
                   {s.l}
                 </div>
               </div>
