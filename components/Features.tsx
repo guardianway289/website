@@ -744,7 +744,7 @@ function TechCardsGrid() {
 
 export const Features = () => {
   return (
-    <section id="features" className="relative py-24 md:py-32 -scroll-mt-10">
+    <section id="features" className="relative pt-24 pb-16 md:pt-40 md:pb-24 lg:pt-44 -scroll-mt-10">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <Reveal>
           <Chapter number="02" label="Why Guardian Way Is Different" />
@@ -787,7 +787,7 @@ export const Features = () => {
         </div>
       </div>
 
-      <div className="mt-20 overflow-hidden border-y border-[#E6EEF9] bg-white py-6">
+      <div className="mt-8 sm:mt-12 md:mt-16 overflow-hidden border-y border-[#E6EEF9] bg-white py-2 sm:py-3.5">
         <style>{`
           @keyframes gw-marquee-ltr { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
           .gw-marquee-track { display: flex; width: max-content; animation: gw-marquee-ltr 28s linear infinite; }
@@ -798,10 +798,10 @@ export const Features = () => {
           {[...PARTNER_VALUES, ...PARTNER_VALUES].map((v, i) => (
             <span
               key={i}
-              className="flex items-center whitespace-nowrap font-heading text-xl md:text-2xl font-extrabold text-[#153E75] px-8"
+              className="flex items-center whitespace-nowrap font-heading text-sm sm:text-lg md:text-2xl font-extrabold text-[#153E75] px-4 sm:px-8"
             >
               {v}
-              <span className="mx-8 text-[#FFC83D]">●</span>
+              <span className="mx-4 sm:mx-8 text-[#FFC83D]">●</span>
             </span>
           ))}
         </div>
