@@ -35,7 +35,7 @@ const OPTIONS = [
     title: "Traditional School Bus",
     status: "Time & route constraints",
     subtitle: "Reliable, but often time-consuming.",
-    concern: "MORE TRAVEL • MORE WAITING • LESS FLEXIBILITY",
+    concern: "MORE TRAVEL • LESS FLEXIBILITY",
     impact: 3,
     tone: {
       accent: "#F59E0B",
@@ -227,7 +227,7 @@ export const Comparison = () => {
 
                       <div className="mt-6 pt-4 border-t border-[#F3F4F6]">
                         <div className="flex items-center gap-2">
-                          <code className="font-mono text-[11.5px] font-semibold truncate" style={{ color: opt.tone.accent }}>
+                          <code className="font-mono text-[10.5px] md:text-[11.5px] font-semibold truncate" style={{ color: opt.tone.accent }}>
                             {opt.concern}
                           </code>
                         </div>
