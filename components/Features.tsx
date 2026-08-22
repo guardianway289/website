@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback, type ReactNode } from "react";
-import { useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 import {
   Users,
   Home,
@@ -495,14 +495,12 @@ const PillarScroll = () => {
 
   return (
     <div className="relative mt-8">
-      {/* Top Header Controls */}
       <div className="flex items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#153E75]">
           <span className="h-2 w-2 rounded-full bg-[#3CB995] animate-pulse" />
           <span>04 SAFETY PILLARS</span>
         </div>
 
-        {/* High-Contrast Navigation Buttons (Desktop only at top) */}
         <div className="hidden md:flex items-center gap-3.5">
           <button
             onClick={() => scroll("left")}
@@ -523,7 +521,6 @@ const PillarScroll = () => {
         </div>
       </div>
 
-      {/* Scrollable track */}
       <div
         ref={scrollRef}
         onScroll={checkScroll}
@@ -542,7 +539,6 @@ const PillarScroll = () => {
         ))}
       </div>
 
-      {/* Navigation Buttons (Mobile below cards) */}
       <div className="flex md:hidden items-center justify-center gap-5 mt-6">
         <button
           onClick={() => scroll("left")}
@@ -584,13 +580,11 @@ const PillarCard = ({
       onMouseEnter={(e) => (e.currentTarget.style.borderColor = `${t.dot}66`)}
       onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#D6DFE9")}
     >
-      {/* Signature ambient glow */}
       <div
         className="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full blur-3xl opacity-60 transition-opacity duration-500 group-hover:opacity-100"
         style={{ backgroundColor: t.glow }}
       />
 
-      {/* Terminal-style header bar */}
       <div className="relative flex items-center justify-between bg-[#0F2E56] px-6 py-3.5">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2 w-2">
@@ -612,7 +606,6 @@ const PillarCard = ({
         </span>
       </div>
 
-      {/* Visual panel with lively UI component */}
       <div
         className="relative h-56 sm:h-60 overflow-hidden flex items-center justify-center p-4"
         style={{ backgroundColor: t.panel }}
@@ -641,7 +634,6 @@ const PillarCard = ({
         </div>
       </div>
 
-      {/* Body content */}
       <div className="relative p-4 sm:p-7 md:p-8 flex flex-col justify-between flex-1">
         <div>
           <h3 className="flex items-center gap-3.5 font-heading text-lg sm:text-xl font-extrabold text-[#111827]">
@@ -658,7 +650,6 @@ const PillarCard = ({
         </div>
 
         <div className="pt-4 border-t border-[#F3F4F6] flex flex-col gap-1.5">
-          {/* Row 1: Tag 1 & Tag 2 */}
           <div className="flex flex-row items-center gap-1.5 sm:gap-2">
             {tags.slice(0, 2).map((tag) => (
               <span
@@ -671,7 +662,6 @@ const PillarCard = ({
             ))}
           </div>
 
-          {/* Row 2: Tag 3 */}
           {tags[2] && (
             <div className="flex flex-row items-center">
               <span
@@ -688,53 +678,57 @@ const PillarCard = ({
   );
 };
 
-/* ---------- Video showcase ---------- */
+/* ---------- Tech Cards Grid with Scroll Ambient Glow ---------- */
 
-const VideoShowcase = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
+function TechCardsGrid() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 85%", "end 20%"],
+  });
 
-  const toggle = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (playing) v.pause();
-    else v.play();
-    setPlaying(!playing);
-  };
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   return (
-    <div className="relative h-full rounded-3xl overflow-hidden border border-[#E6EEF9] shadow-[0_8px_30px_rgba(21,62,117,0.06)] bg-black group min-h-70 md:min-h-105 mt-5">
-      <video
-        ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover"
-        poster="https://images.pexels.com/photos/8926848/pexels-photo-8926848.jpeg?auto=compress&cs=tinysrgb&w=1200"
-        muted
-        loop
-        playsInline
-        onClick={toggle}
-        onEnded={() => setPlaying(false)}
-        src="/video.mp4"
-      />
-      <button
-        type="button"
-        onClick={toggle}
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black/25 ${
-          playing ? "opacity-0 group-hover:opacity-100" : "opacity-100"
-        }`}
-        aria-label={playing ? "Pause video" : "Play video"}
-      >
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-[#153E75] shadow-lg hover:scale-110 transition-transform">
-          {playing ? (
-            <Pause className="h-7 w-7" strokeWidth={2} />
-          ) : (
-            <Play className="h-7 w-7 translate-x-0.5" strokeWidth={2} />
-          )}
-        </span>
-      </button>
-      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" />
+    <div ref={containerRef} className="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
+      {TECH.map((t, i) => {
+        const start = (i / TECH.length) * 0.7;
+        const end = Math.min(1.0, start + 0.25);
+
+        const borderColor = useTransform(
+          smoothProgress,
+          [start, end],
+          ["#E6EEF9", "#FFC83D"]
+        );
+
+        return (
+          <motion.div
+            key={t.title}
+            style={{
+              borderColor,
+            }}
+            whileHover={{ scale: 1.02 }}
+            className="group relative h-28 sm:h-32 rounded-2xl bg-white border-2 p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden transition-transform duration-200"
+          >
+            <div className="relative z-10 flex flex-col justify-between h-full">
+              <t.icon
+                className="h-5 w-5 sm:h-6 sm:w-6 text-[#153E75] group-hover:scale-110 transition-transform"
+                strokeWidth={2}
+              />
+              <p className="mt-2 text-xs sm:text-sm font-semibold leading-snug text-[#111827]">
+                {t.title}
+              </p>
+            </div>
+          </motion.div>
+        );
+      })}
     </div>
   );
-};
+}
 
 /* ---------- Main section ---------- */
 
@@ -756,10 +750,8 @@ export const Features = () => {
           </p>
         </Reveal>
 
-        {/* Pillars — Bento Grid on Desktop / Carousel on Mobile */}
         <PillarScroll />
 
-        {/* Live tracking + smart tech */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
           <Reveal className="md:col-span-5" y={24}>
             <div className="h-full rounded-3xl gw-card p-8 flex flex-col items-center justify-center text-center">
@@ -775,34 +767,16 @@ export const Features = () => {
             </div>
           </Reveal>
           <Reveal delay={0.06} className="md:col-span-7" y={24}>
-            <div className="h-full rounded-3xl gw-card p-8 mt-15">
+            <div className="h-full rounded-3xl gw-card p-6 sm:p-8 mt-6 md:mt-0">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#153E75]">
                 Smart tech for smoother commuting
               </p>
-              <div
-                className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[360px] overflow-y-auto overscroll-contain pr-1 sm:max-h-none sm:overflow-visible sm:pr-0"
-                style={{ scrollbarWidth: "thin" }}
-              >
-                {TECH.map((t, i) => (
-                  <Reveal key={t.title} delay={0.08 + i * 0.05} y={20}>
-                    <div className="group h-32 rounded-2xl bg-[#F3F8FF] border border-[#E6EEF9] p-5 hover:bg-white hover:shadow-[0_12px_30px_rgba(21,62,117,0.08)] transition-all">
-                      <t.icon
-                        className="h-6 w-6 text-[#153E75] group-hover:scale-110 transition-transform"
-                        strokeWidth={1.75}
-                      />
-                      <p className="mt-3 text-sm font-semibold leading-snug text-[#111827]">
-                        {t.title}
-                      </p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
+              <TechCardsGrid />
             </div>
           </Reveal>
         </div>
       </div>
 
-      {/* Marquee */}
       <div className="mt-20 overflow-hidden border-y border-[#E6EEF9] bg-white py-6">
         <style>{`
           @keyframes gw-marquee-ltr { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
