@@ -705,11 +705,21 @@ function TechCardsGrid() {
           ["#E6EEF9", "#FFC83D"]
         );
 
+        const innerGlow = useTransform(
+          smoothProgress,
+          [start, end],
+          [
+            "inset 0 0 0px rgba(255, 200, 61, 0)",
+            "inset 0 0 14px rgba(255, 200, 61, 0.35), inset 0 2px 6px rgba(21, 62, 117, 0.06)",
+          ]
+        );
+
         return (
           <motion.div
             key={t.title}
             style={{
               borderColor,
+              boxShadow: innerGlow,
             }}
             whileHover={{ scale: 1.02 }}
             className="group relative h-28 sm:h-32 rounded-2xl bg-white border-2 p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden transition-transform duration-200"
