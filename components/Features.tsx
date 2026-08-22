@@ -503,22 +503,22 @@ const PillarScroll = () => {
         </div>
 
         {/* High-Contrast Navigation Buttons (Desktop only at top) */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3.5">
           <button
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
             aria-label="Scroll pillars left"
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-md hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            className="flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-lg hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-6.5 w-6.5 sm:h-7 sm:w-7" strokeWidth={2.5} />
           </button>
           <button
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
             aria-label="Scroll pillars right"
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-md hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            className="flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-lg hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-6.5 w-6.5 sm:h-7 sm:w-7" strokeWidth={2.5} />
           </button>
         </div>
       </div>
@@ -543,22 +543,22 @@ const PillarScroll = () => {
       </div>
 
       {/* Navigation Buttons (Mobile below cards) */}
-      <div className="flex md:hidden items-center justify-center gap-4 mt-6">
+      <div className="flex md:hidden items-center justify-center gap-5 mt-6">
         <button
           onClick={() => scroll("left")}
           disabled={!canScrollLeft}
           aria-label="Scroll pillars left"
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-md hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+          className="flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-lg hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
         >
-          <ChevronLeft className="h-5 w-5" />
+          <ChevronLeft className="h-6.5 w-6.5 sm:h-7 sm:w-7" strokeWidth={2.5} />
         </button>
         <button
           onClick={() => scroll("right")}
           disabled={!canScrollRight}
           aria-label="Scroll pillars right"
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-md hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+          className="flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#0C2545] text-white border border-[#0C2545] shadow-lg hover:bg-[#153E75] transition-all duration-200 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
         >
-          <ChevronRight className="h-5 w-5" />
+          <ChevronRight className="h-6.5 w-6.5 sm:h-7 sm:w-7" strokeWidth={2.5} />
         </button>
       </div>
     </div>

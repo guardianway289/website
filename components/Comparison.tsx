@@ -33,7 +33,7 @@ const OPTIONS = [
   {
     icon: "ion:bus-outline",
     code: "ROUTE_B",
-    title: "Traditional School Bus",
+    title: "School Bus",
     status: "Time & route constraints",
     subtitle: "Reliable, but often time-consuming.",
     concern: "MORE TRAVEL • LESS FLEXIBILITY",
