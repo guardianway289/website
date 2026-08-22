@@ -633,7 +633,7 @@ const PillarCard = ({
             {title}
           </h3>
           <p className="mt-3 text-[14.5px] text-[#4B5563] leading-relaxed">
-            {/* {body} */}
+            {body}
           </p>
         </div>
 
@@ -742,9 +742,9 @@ export const Features = () => {
           <Reveal delay={0.06} className="md:col-span-7" y={24}>
             <div className="h-full rounded-3xl gw-card p-8 mt-15">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#153E75]">
-                Smart tech for smarter commuting
+                Smart tech for smoother commuting
               </p>
-              <div className="mt-6 grid grid-cols-2 gap-4">
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {TECH.map((t, i) => (
                   <Reveal key={t.title} delay={0.08 + i * 0.05} y={20}>
                     <div className="group h-full rounded-2xl bg-[#F3F8FF] border border-[#E6EEF9] p-5 hover:bg-white hover:shadow-[0_12px_30px_rgba(21,62,117,0.08)] transition-all">

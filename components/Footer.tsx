@@ -26,9 +26,9 @@ export default function Footer() {
               Premium smart school cabs. Safe rides, trusted drivers, complete transparency — because your child's journey deserves more than just transportation.
             </p>
             
-            <button className="mt-6 rounded-full bg-[#FFC107] px-6 py-2.5 text-[13px] font-bold text-[#153E75] hover:bg-[#FFD54F] transition-colors shadow-sm">
+            <a href="#contact" className="mt-6 inline-flex rounded-full bg-[#FFC107] px-6 py-2.5 text-[13px] font-bold text-[#153E75] hover:bg-[#FFD54F] transition-colors shadow-sm">
               Get In Touch
-            </button>
+            </a>
           </div>
 
           {/* Middle Column - Explore */}
@@ -38,17 +38,17 @@ export default function Footer() {
             </h4>
             <ul className="mt-6 space-y-3.5">
               <li>
-                <a href="#" className="text-[13px] text-white/70 hover:text-white transition-colors font-light">
+                <a href="#why-it-matters" className="text-[13px] text-white/70 hover:text-white transition-colors font-light">
                   Why It Matters
                 </a>
               </li>
               <li>
-                <a href="#" className="text-[13px] text-white/70 hover:text-white transition-colors font-light">
+                <a href="#features" className="text-[13px] text-white/70 hover:text-white transition-colors font-light">
                   Why Guardian Way
                 </a>
               </li>
               <li>
-                <a href="#" className="text-[13px] text-white/70 hover:text-white transition-colors font-light">
+                <a href="#our-promise" className="text-[13px] text-white/70 hover:text-white transition-colors font-light">
                   Our Purpose
                 </a>
               </li>
@@ -63,11 +63,11 @@ export default function Footer() {
             <ul className="mt-6 space-y-3.5">
               <li className="flex items-start gap-3 text-[13px] text-white/70 font-light">
                 <Icon icon="ph:phone-bold" className="text-[#FFC107] text-[16px] mt-0.5 shrink-0" />
-                <span>Phone / WhatsApp — coming soon</span>
+                <a href="tel:+919090119355">Phone / WhatsApp — +91 9090119355</a>
               </li>
               <li className="flex items-start gap-3 text-[13px] text-white/70 font-light">
                 <Icon icon="ph:envelope-simple-bold" className="text-[#FFC107] text-[16px] mt-0.5 shrink-0" />
-                <span>Email — coming soon</span>
+                <a href="mailto:Guardianway.support@gmail.com">Email — Guardianway.support@gmail.com</a>
               </li>
               <li className="flex items-start gap-3 text-[13px] text-white/70 font-light">
                 <Icon icon="ph:map-pin-bold" className="text-[#FFC107] text-[16px] mt-0.5 shrink-0" />
