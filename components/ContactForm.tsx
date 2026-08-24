@@ -251,8 +251,8 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
 
           <div className="lg:col-span-7">
             <Reveal delay={0.1} y={24}>
-              <div className="rounded-3xl bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(21,62,117,0.06)] border border-[#E6EEF9]">
-                <div className="grid grid-cols-2 gap-2 rounded-2xl bg-[#F3F8FF] p-1.5 mb-6">
+              <div className="rounded-3xl bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(21,62,117,0.06)] border border-[#E6EEF9] h-140 flex flex-col">
+                <div className="grid grid-cols-2 gap-2 rounded-2xl bg-[#F3F8FF] p-1.5 mb-6 shrink-0">
                   {ROLES.map((item) => (
                     <button
                       key={item.k}
@@ -271,7 +271,7 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                 </div>
 
                 {submitted ? (
-                  <div className="flex min-h-120 flex-col items-center justify-center text-center py-10">
+                  <div className="flex flex-col items-center justify-center text-center py-10 min-h-0 flex-1 overflow-y-auto">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E4F7F0] text-[#168568]">
                       <Check className="h-8 w-8" strokeWidth={2.5} />
                     </div>
@@ -294,7 +294,12 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                     </button>
                   </div>
                 ) : (
-                  <form noValidate onSubmit={submit} data-testid="contact-form">
+                  <form
+                    noValidate
+                    onSubmit={submit}
+                    data-testid="contact-form"
+                    className="contact-form-scroll min-h-0 flex-1 overflow-y-auto pr-2"
+                  >
                     <div className="mb-7 flex flex-wrap gap-x-4 gap-y-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[#94A3B8]">
                       {steps.map((step, index) => (
                         <span

@@ -69,7 +69,7 @@ export default function OurPromise() {
           <div className="lg:col-span-5 lg:col-start-1 lg:row-start-1">
             <Reveal>
               <div className="text-left">
-                <Chapter number="03" label="OUR PURPOSE" />
+                <Chapter number="03" label="OUR PROMISE" />
                 <h2 className="mt-4 font-display text-[5vw] sm:text-[5vw] md:text-[3.5vw] lg:text-5xl font-extrabold tracking-tight text-[#153E75] leading-tight whitespace-nowrap">
                   A promise to everyone who trusts us.
                 </h2>
