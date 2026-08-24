@@ -787,7 +787,7 @@ export const Features = () => {
         </div>
       </div>
 
-      <div className="mt-8 sm:mt-12 md:mt-16 overflow-hidden border-y border-[#E6EEF9] bg-white py-2 sm:py-3.5">
+      <div className="mt-8 sm:mt-12 md:mt-16 overflow-hidden border-y border-[#E6EEF9] bg-white py-5 md:py-7">
         <style>{`
           @keyframes gw-marquee-ltr { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
           .gw-marquee-track { display: flex; width: max-content; animation: gw-marquee-ltr 28s linear infinite; }
@@ -798,10 +798,10 @@ export const Features = () => {
           {[...PARTNER_VALUES, ...PARTNER_VALUES].map((v, i) => (
             <span
               key={i}
-              className="flex items-center whitespace-nowrap font-heading text-sm sm:text-lg md:text-2xl font-extrabold text-[#153E75] px-4 sm:px-8"
+              className="flex items-center whitespace-nowrap font-heading text-sm sm:text-base md:text-2xl font-extrabold text-[#153E75] px-4 md:px-8"
             >
               {v}
-              <span className="mx-4 sm:mx-8 text-[#FFC83D]">●</span>
+              <span className="mx-4 md:mx-8 text-[#FFC83D]">●</span>
             </span>
           ))}
         </div>
