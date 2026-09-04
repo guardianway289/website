@@ -69,7 +69,7 @@ export const parentFormSchema = z.object({
     .pipe(
       z
         .string()
-        .min(2, "Full name must be at least 2 characters.")
+        .min(2, "Please enter your full name.")
         .max(100, "Name is too long.")
     ),
   phone: z
@@ -78,9 +78,9 @@ export const parentFormSchema = z.object({
     .pipe(
       z
         .string()
-        .min(7, "Phone number must be at least 7 digits.")
+        .min(7, "Please enter your phone number so we can reach you.")
         .max(20, "Phone number is too long.")
-        .regex(phoneRegex, "Please enter a valid phone number.")
+        .regex(phoneRegex, "Please enter a valid phone number so we can reach you.")
     ),
   email: z
     .string()
@@ -98,16 +98,16 @@ export const parentFormSchema = z.object({
   school: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(2, "School name is required.")),
+    .pipe(z.string().min(2, "Please enter your child's school name.")),
   locality: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(2, "Home locality / area is required.")),
-  distance: numericString("Distance", 0, 500),
+    .pipe(z.string().min(2, "Please enter your home locality / area.")),
+  distance: numericString("Approximate distance", 0, 500),
   transport: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(1, "Please select current transport.")),
+    .pipe(z.string().min(1, "Please select how your child travels today.")),
   travelHours: numericString("Travel hours", 0, 24, true),
   travelMinutes: numericString("Travel minutes", 0, 59, true),
   monthlyCost: numericString("Monthly cost", 0, 1000000),
@@ -123,11 +123,11 @@ export const parentFormSchema = z.object({
   timeline: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(1, "Please select when you need the service.")),
+    .pipe(z.string().min(1, "Please select when you would like to start.")),
   callTime: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(1, "Please select preferred call time.")),
+    .pipe(z.string().min(1, "Please select when we should call you.")),
 });
 
 export const institutionFormSchema = z.object({
@@ -138,7 +138,7 @@ export const institutionFormSchema = z.object({
     .pipe(
       z
         .string()
-        .min(2, "Contact person name must be at least 2 characters.")
+        .min(2, "Please enter the contact person's full name.")
         .max(100, "Name is too long.")
     ),
   phone: z
@@ -147,9 +147,9 @@ export const institutionFormSchema = z.object({
     .pipe(
       z
         .string()
-        .min(7, "Phone number must be at least 7 digits.")
+        .min(7, "Please enter your phone number so we can reach you.")
         .max(20, "Phone number is too long.")
-        .regex(phoneRegex, "Please enter a valid phone number.")
+        .regex(phoneRegex, "Please enter a valid phone number so we can reach you.")
     ),
   email: z
     .string()
@@ -159,7 +159,7 @@ export const institutionFormSchema = z.object({
   organization: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(2, "Institution name is required.")),
+    .pipe(z.string().min(2, "Please enter your institution name.")),
   designation: z
     .string()
     .transform(sanitizeString)
@@ -167,11 +167,11 @@ export const institutionFormSchema = z.object({
   location: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(2, "Institution location is required.")),
+    .pipe(z.string().min(2, "Please enter institution location.")),
   studentCount: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(1, "Please select approx. number of students.")),
+    .pipe(z.string().min(1, "Please select approximate student strength.")),
   setup: z
     .string()
     .transform(sanitizeString)
@@ -179,11 +179,11 @@ export const institutionFormSchema = z.object({
   timeline: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(1, "Please select timeline.")),
+    .pipe(z.string().min(1, "Please select when you are looking to explore this.")),
   callTime: z
     .string()
     .transform(sanitizeString)
-    .pipe(z.string().min(1, "Please select preferred call time.")),
+    .pipe(z.string().min(1, "Please select preferred time to call.")),
 });
 
 export const contactFormSchema = z.discriminatedUnion("role", [
@@ -217,3 +217,102 @@ export function validateContactForm(data: unknown):
 
   return { success: false, errors };
 }
+
+/**
+ * Validates a single step of the form for the active role.
+ * Returns errors for fields in that step if validation fails.
+ */
+export function validateStep(
+  role: "parent" | "institute",
+  step: number,
+  formData: Record<string, any>
+): { success: boolean; errors: Record<string, string> } {
+  const errors: Record<string, string> = {};
+
+  if (role === "parent") {
+    if (step === 1) {
+      // Validate name, phone, email (if provided), school, locality
+      const nameRes = parentFormSchema.shape.name.safeParse(formData.name);
+      if (!nameRes.success) errors.name = nameRes.error.issues[0].message;
+
+      const phoneRes = parentFormSchema.shape.phone.safeParse(formData.phone);
+      if (!phoneRes.success) errors.phone = phoneRes.error.issues[0].message;
+
+      if (formData.email) {
+        const emailRes = parentFormSchema.shape.email.safeParse(formData.email);
+        if (!emailRes.success) errors.email = emailRes.error.issues[0].message;
+      }
+
+      const schoolRes = parentFormSchema.shape.school.safeParse(formData.school);
+      if (!schoolRes.success) errors.school = schoolRes.error.issues[0].message;
+
+      const localityRes = parentFormSchema.shape.locality.safeParse(formData.locality);
+      if (!localityRes.success) errors.locality = localityRes.error.issues[0].message;
+    } else if (step === 2) {
+      // Validate transport, distance, travelHours, travelMinutes, monthlyCost
+      const transportRes = parentFormSchema.shape.transport.safeParse(formData.transport);
+      if (!transportRes.success) errors.transport = transportRes.error.issues[0].message;
+
+      const distanceRes = parentFormSchema.shape.distance.safeParse(formData.distance);
+      if (!distanceRes.success) errors.distance = distanceRes.error.issues[0].message;
+
+      const travelHoursRes = parentFormSchema.shape.travelHours.safeParse(formData.travelHours);
+      if (!travelHoursRes.success) errors.travelHours = travelHoursRes.error.issues[0].message;
+
+      const travelMinutesRes = parentFormSchema.shape.travelMinutes.safeParse(formData.travelMinutes);
+      if (!travelMinutesRes.success) errors.travelMinutes = travelMinutesRes.error.issues[0].message;
+
+      const monthlyCostRes = parentFormSchema.shape.monthlyCost.safeParse(formData.monthlyCost);
+      if (!monthlyCostRes.success) errors.monthlyCost = monthlyCostRes.error.issues[0].message;
+    } else if (step === 3) {
+      // Validate timeline, callTime
+      const timelineRes = parentFormSchema.shape.timeline.safeParse(formData.timeline);
+      if (!timelineRes.success) errors.timeline = timelineRes.error.issues[0].message;
+
+      const callTimeRes = parentFormSchema.shape.callTime.safeParse(formData.callTime);
+      if (!callTimeRes.success) errors.callTime = callTimeRes.error.issues[0].message;
+    }
+  } else {
+    // Institution flow
+    if (step === 1) {
+      // Validate name, phone, email
+      const nameRes = institutionFormSchema.shape.name.safeParse(formData.name);
+      if (!nameRes.success) errors.name = nameRes.error.issues[0].message;
+
+      const phoneRes = institutionFormSchema.shape.phone.safeParse(formData.phone);
+      if (!phoneRes.success) errors.phone = phoneRes.error.issues[0].message;
+
+      const emailRes = institutionFormSchema.shape.email.safeParse(formData.email);
+      if (!emailRes.success) errors.email = emailRes.error.issues[0].message;
+    } else if (step === 2) {
+      // Validate organization, designation, location, studentCount
+      const orgRes = institutionFormSchema.shape.organization.safeParse(formData.organization);
+      if (!orgRes.success) errors.organization = orgRes.error.issues[0].message;
+
+      const desigRes = institutionFormSchema.shape.designation.safeParse(formData.designation);
+      if (!desigRes.success) errors.designation = desigRes.error.issues[0].message;
+
+      const locRes = institutionFormSchema.shape.location.safeParse(formData.location);
+      if (!locRes.success) errors.location = locRes.error.issues[0].message;
+
+      const countRes = institutionFormSchema.shape.studentCount.safeParse(formData.studentCount);
+      if (!countRes.success) errors.studentCount = countRes.error.issues[0].message;
+    } else if (step === 3) {
+      // Validate setup, timeline, callTime
+      const setupRes = institutionFormSchema.shape.setup.safeParse(formData.setup);
+      if (!setupRes.success) errors.setup = setupRes.error.issues[0].message;
+
+      const timelineRes = institutionFormSchema.shape.timeline.safeParse(formData.timeline);
+      if (!timelineRes.success) errors.timeline = timelineRes.error.issues[0].message;
+
+      const callTimeRes = institutionFormSchema.shape.callTime.safeParse(formData.callTime);
+      if (!callTimeRes.success) errors.callTime = callTimeRes.error.issues[0].message;
+    }
+  }
+
+  return {
+    success: Object.keys(errors).length === 0,
+    errors,
+  };
+}
+

@@ -146,26 +146,31 @@ button:focus-visible,
 
 ::-webkit-scrollbar {
   display: none;
+  width: 1px;
 }
 
 .contact-form-scroll {
   scrollbar-width: thin;
-  scrollbar-color: var(--navy) #e8f0fa;
+  scrollbar-color: rgba(21, 62, 117, 0.5) transparent;
 }
 
 .contact-form-scroll::-webkit-scrollbar {
-  display: block;
-  width: 4px;
+  display: block !important;
+  width: 2px !important;
+  height: 2px !important;
 }
 
 .contact-form-scroll::-webkit-scrollbar-track {
-  background: #e8f0fa;
-  border-radius: 999px;
+  background: transparent !important;
 }
 
 .contact-form-scroll::-webkit-scrollbar-thumb {
-  background: var(--navy);
-  border-radius: 999px;
+  background: rgba(21, 62, 117, 0.5) !important;
+  border-radius: 999px !important;
+}
+
+.contact-form-scroll::-webkit-scrollbar-thumb:hover {
+  background: #153e75 !important;
 }
 
 @keyframes iconFloat {

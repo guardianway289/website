@@ -26,43 +26,43 @@ export async function POST(request: Request) {
 	const data = validation.data;
 
 	if (data.role === "parent") {
-		const { error } = await supabase.from("parent_enquiries").insert({
+		const { error } = await supabase.from("parent_submissions").insert({
 			name: data.name,
 			phone: data.phone,
 			email: data.email || null,
 			school: data.school,
 			locality: data.locality,
-			distance_km: data.distance,
-			current_transport: data.transport,
+			distance: data.distance,
+			transport: data.transport,
 			travel_hours: data.travelHours,
 			travel_minutes: data.travelMinutes,
-			monthly_transport_cost: data.monthlyCost,
+			monthly_cost: data.monthlyCost,
 			child_grade: data.childGrade || null,
 			matters: data.matters || [],
-			service_timeline: data.timeline,
-			preferred_call_time: data.callTime,
+			timeline: data.timeline,
+			call_time: data.callTime,
 		});
 
 		if (error) {
-			console.error("Parent enquiry insert failed", error);
+			console.error("Parent submission insert failed", error);
 			return NextResponse.json({ error: "Unable to save parent enquiry." }, { status: 500 });
 		}
 	} else {
-		const { error } = await supabase.from("institution_enquiries").insert({
-			contact_person: data.name,
+		const { error } = await supabase.from("institute_submissions").insert({
+			name: data.name,
 			phone: data.phone,
-			work_email: data.email,
-			institution_name: data.organization,
+			email: data.email,
+			organization: data.organization,
 			designation: data.designation,
-			institution_location: data.location,
-			student_strength: data.studentCount,
-			current_transport_setup: data.setup,
-			exploration_timeline: data.timeline,
-			preferred_call_time: data.callTime,
+			location: data.location,
+			student_count: data.studentCount,
+			setup: data.setup,
+			timeline: data.timeline,
+			call_time: data.callTime,
 		});
 
 		if (error) {
-			console.error("Institution enquiry insert failed", error);
+			console.error("Institute submission insert failed", error);
 			return NextResponse.json({ error: "Unable to save institution enquiry." }, { status: 500 });
 		}
 	}

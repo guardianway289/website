@@ -16,6 +16,7 @@ export default function Footer() {
                 width={36} 
                 height={36} 
                 className="h-9 w-auto object-contain rounded-full" 
+                style={{"width":"auto", "height":"auto"}}
               />
               <span className="text-white tracking-wide">
                 Guardian <span className="text-[#FFC107]">Way</span>
