@@ -527,15 +527,13 @@ const PillarScroll = () => {
         className="flex gap-6 overflow-x-auto pt-2 pb-4 snap-x snap-mandatory -mx-6 px-6 md:-mx-12 md:px-12 scroll-pl-6 md:scroll-pl-12 scrollbar-none"
         style={{ scrollbarWidth: "none" }}
       >
-        {PILLARS.map((p, i) => (
-          <Reveal
+        {PILLARS.map((p) => (
+          <div
             key={p.title}
-            delay={i * 0.07}
-            y={24}
             className="snap-start shrink-0 w-[85vw] sm:w-[70vw] md:w-[420px] lg:w-[440px]"
           >
             <PillarCard {...p} />
-          </Reveal>
+          </div>
         ))}
       </div>
 
