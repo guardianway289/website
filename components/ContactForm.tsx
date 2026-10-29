@@ -10,7 +10,14 @@ import {
   type ReactNode,
 } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, ArrowRight, Check, Loader2, ShieldCheck, AlertCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  Loader2,
+  ShieldCheck,
+  AlertCircle,
+} from "lucide-react";
 import { Reveal, Chapter } from "./Reveal";
 import { validateContactForm, validateStep } from "@/app/lib/validations/form";
 
@@ -149,7 +156,7 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
 
   const isFormDirty = () => {
     return Object.values(form).some((val) =>
-      Array.isArray(val) ? val.length > 0 : Boolean(val)
+      Array.isArray(val) ? val.length > 0 : Boolean(val),
     );
   };
 
@@ -256,7 +263,7 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
       toast.error(
         error instanceof Error
           ? error.message
-          : "Something went wrong. Please try again."
+          : "Something went wrong. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -381,7 +388,9 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                       Thanks — we’ve received your details.
                     </h3>
                     <p className="mt-4 max-w-lg text-sm md:text-base leading-relaxed text-[#4B5563]">
-                      Our team will get in touch with you via call, WhatsApp or email to understand your commute and discuss the next steps.
+                      Our team will get in touch with you via call, WhatsApp or
+                      email to understand your commute and discuss the next
+                      steps.
                     </p>
                     <button
                       type="button"
@@ -436,8 +445,8 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                 isActive
                                   ? "text-[#153E75] font-bold"
                                   : isCompleted
-                                  ? "text-[#168568]"
-                                  : "text-[#94A3B8]"
+                                    ? "text-[#168568]"
+                                    : "text-[#94A3B8]"
                               }`}
                             >
                               {isCompleted && (
@@ -478,26 +487,28 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                               </div>
 
                               <div>
-                                <label className={labelC}>Phone / WhatsApp *</label>
+                                <label className={labelC}>
+                                  Phone / WhatsApp *
+                                </label>
                                 <input
                                   data-testid="input-phone"
                                   className={errors.phone ? fieldErr : field}
                                   value={form.phone}
                                   onChange={set("phone")}
-                                  placeholder="+91 XXXXX XXXXX"
                                 />
                                 <FieldError error={errors.phone} />
                               </div>
 
                               <div>
-                                <label className={labelC}>Email (Optional)</label>
+                                <label className={labelC}>
+                                  Email (Optional)
+                                </label>
                                 <input
                                   data-testid="input-email"
                                   type="email"
                                   className={errors.email ? fieldErr : field}
                                   value={form.email}
                                   onChange={set("email")}
-                                  placeholder="you@example.com"
                                 />
                                 <FieldError error={errors.email} />
                               </div>
@@ -509,7 +520,6 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                   className={errors.school ? fieldErr : field}
                                   value={form.school}
                                   onChange={set("school")}
-                                  placeholder="Search or enter school name"
                                 />
                                 <FieldError error={errors.school} />
                               </div>
@@ -522,7 +532,6 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                   className={errors.locality ? fieldErr : field}
                                   value={form.locality}
                                   onChange={set("locality")}
-                                  placeholder="e.g. Sector 57, Gurugram"
                                 />
                                 <FieldError error={errors.locality} />
                               </div>
@@ -539,7 +548,7 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                   "KG",
                                   ...Array.from(
                                     { length: 12 },
-                                    (_, index) => `Class ${index + 1}`
+                                    (_, index) => `Class ${index + 1}`,
                                   ),
                                 ].map((grade) => (
                                   <option key={grade}>{grade}</option>
@@ -557,7 +566,9 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                 required
                                 error={errors.transport}
                               >
-                                <option value="">Select current transport</option>
+                                <option value="">
+                                  Select current transport
+                                </option>
                                 <option>School bus</option>
                                 <option>Private van/cab</option>
                                 <option>Parent drop-off</option>
@@ -573,10 +584,11 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                     type="number"
                                     min="0"
                                     step="0.1"
-                                    className={errors.distance ? fieldErr : field}
+                                    className={
+                                      errors.distance ? fieldErr : field
+                                    }
                                     value={form.distance}
                                     onChange={set("distance")}
-                                    placeholder="__"
                                   />
                                   <span className="text-sm font-semibold text-[#4B5563] shrink-0">
                                     km
@@ -602,7 +614,6 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                       }
                                       value={form.travelHours}
                                       onChange={set("travelHours")}
-                                      placeholder="__"
                                       aria-label="Hours"
                                     />
                                     <span className="text-xs sm:text-sm font-medium text-[#6B7280]">
@@ -619,7 +630,6 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                       }
                                       value={form.travelMinutes}
                                       onChange={set("travelMinutes")}
-                                      placeholder="__"
                                       aria-label="Minutes"
                                     />
                                     <span className="text-xs sm:text-sm font-medium text-[#6B7280]">
@@ -639,7 +649,8 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
 
                               <div>
                                 <label className={labelC}>
-                                  What do you currently pay for transportation? *
+                                  What do you currently pay for transportation?
+                                  *
                                 </label>
                                 <div className="relative">
                                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-bold text-[#4B5563]">
@@ -653,7 +664,6 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                     } pl-8`}
                                     value={form.monthlyCost}
                                     onChange={set("monthlyCost")}
-                                    placeholder="Enter amount"
                                   />
                                 </div>
                                 <FieldError error={errors.monthlyCost} />
@@ -728,7 +738,9 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                 required
                                 error={errors.callTime}
                               >
-                                <option value="">Select preferred call time</option>
+                                <option value="">
+                                  Select preferred call time
+                                </option>
                                 <option>9 AM–12 PM</option>
                                 <option>12 PM–3 PM</option>
                                 <option>3 PM–6 PM</option>
@@ -748,7 +760,9 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                           {step === 1 && (
                             <>
                               <div>
-                                <label className={labelC}>Contact person *</label>
+                                <label className={labelC}>
+                                  Contact person *
+                                </label>
                                 <input
                                   data-testid="input-name"
                                   className={errors.name ? fieldErr : field}
@@ -760,13 +774,14 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                               </div>
 
                               <div>
-                                <label className={labelC}>Phone / WhatsApp *</label>
+                                <label className={labelC}>
+                                  Phone / WhatsApp *
+                                </label>
                                 <input
                                   data-testid="input-phone"
                                   className={errors.phone ? fieldErr : field}
                                   value={form.phone}
                                   onChange={set("phone")}
-                                  placeholder="+91 XXXXX XXXXX"
                                 />
                                 <FieldError error={errors.phone} />
                               </div>
@@ -779,7 +794,6 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                   className={errors.email ? fieldErr : field}
                                   value={form.email}
                                   onChange={set("email")}
-                                  placeholder="name@school.com"
                                 />
                                 <FieldError error={errors.email} />
                               </div>
@@ -789,14 +803,15 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                           {step === 2 && (
                             <>
                               <div>
-                                <label className={labelC}>Institution name *</label>
+                                <label className={labelC}>
+                                  Institution name *
+                                </label>
                                 <input
                                   className={
                                     errors.organization ? fieldErr : field
                                   }
                                   value={form.organization}
                                   onChange={set("organization")}
-                                  placeholder="School / Institute name"
                                 />
                                 <FieldError error={errors.organization} />
                               </div>
@@ -825,7 +840,6 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                   className={errors.location ? fieldErr : field}
                                   value={form.location}
                                   onChange={set("location")}
-                                  placeholder="Area / Sector / City"
                                 />
                                 <FieldError error={errors.location} />
                               </div>
@@ -837,7 +851,9 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                 required
                                 error={errors.studentCount}
                               >
-                                <option value="">Select student strength</option>
+                                <option value="">
+                                  Select student strength
+                                </option>
                                 <option>Under 250</option>
                                 <option>250–500</option>
                                 <option>500–1,000</option>
@@ -885,7 +901,9 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
                                 required
                                 error={errors.callTime}
                               >
-                                <option value="">Select preferred call time</option>
+                                <option value="">
+                                  Select preferred call time
+                                </option>
                                 <option>9 AM–12 PM</option>
                                 <option>12 PM–3 PM</option>
                                 <option>3 PM–6 PM</option>
@@ -951,4 +969,3 @@ export const ContactForm = forwardRef<HTMLElement>((_props, ref) => {
 });
 
 ContactForm.displayName = "ContactForm";
-

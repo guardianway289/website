@@ -68,7 +68,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3 text-[13px] text-white/70 font-light">
                 <Icon icon="ph:envelope-simple-bold" className="text-[#FFC107] text-[16px] mt-0.5 shrink-0" />
-                <a href="mailto:Guardianway.support@gmail.com">Email — Guardianway.support@gmail.com</a>
+                <a href="mailto:Guardianway.support@gmail.com">Email — guardianway.support@gmail.com</a>
               </li>
               <li className="flex items-start gap-3 text-[13px] text-white/70 font-light">
                 <Icon icon="ph:map-pin-bold" className="text-[#FFC107] text-[16px] mt-0.5 shrink-0" />
