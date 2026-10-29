@@ -9,7 +9,7 @@ import "@fontsource/plus-jakarta-sans/600.css";
 import "@fontsource/plus-jakarta-sans/700.css";
 import "./globals.css";
 
-const BASE_URL = "https://guardianway.in";
+const BASE_URL = "https://www.guardianway.in";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
